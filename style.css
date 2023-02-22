@@ -1,0 +1,107 @@
+
+div{
+  width: 100vw;
+  height: 100vh;
+}
+/* SideBar CSS Section */
+.sidenav{
+  height: 100%;
+  width: 200px;
+  position: fixed;
+  z-index: 0;
+  top: 0;
+  left: 0;
+  background-color: gray;
+  overflow-x: hidden;
+  padding-top: 20px;
+  /* Sdisplay: block; */
+  column-span: all;
+}
+.sidenav a{
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 25px;
+  color: black;
+  display: block;
+}
+.sidenav a:hover{
+  color: #f1f1f1;
+}
+#sideHeader{
+  margin-top: 5;
+  color: white;
+  text-align: center;
+}
+/* Main and Body */
+.main{
+  margin-left: 190px; /* Same as the width of the sidenav */
+  font-size: 28px; /* Increased text to enable scrolling */
+  padding: 0px 10px;
+  margin-top: 30px;
+  margin-block-end: auto;
+  overflow: hidden;
+  vertical-align: auto;
+  background-color: lightgrey;
+}
+body{
+  font-family: "Lato", sans-serif;
+  background-color: white;
+  margin: 0;
+  position:fixed;
+  top:0;
+  bottom:0;
+  left:0;
+  right:0;
+}
+#days{
+  font-size: 15px;
+  text-align: center;
+  margin-top: 70px;
+}
+#mainHead{
+  color: black;
+  text-align: center;
+  background-color: beige;
+}
+
+/* Columns */
+.col-mon{
+  float:left;
+  width: 10%;
+  background-color: rebeccapurple;
+}
+.col-tues{
+  float: left;
+  width: 10%;
+  background-color: red;
+}
+.col-wed{
+  float: left;
+  width: 10%;
+  background-color: blue;
+}
+.col-thurs{
+  float: left;
+  width: 10%;
+  background-color: yellow;
+}
+.col-fri{
+  float: left;
+  width: 10%;
+  background-color: green;
+}
+.col-sat{
+  float: left;
+  width: 10%;
+  background-color: orange;
+}
+.col-sun{
+  float: left;
+  width: 10%;
+  background-color: palevioletred;
+}
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+  }
