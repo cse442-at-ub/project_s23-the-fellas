@@ -1,7 +1,6 @@
+html{
+  height:max-content;
 
-div{
-  width: 100vw;
-  height: 100vh;
 }
 /* SideBar CSS Section */
 .sidenav{
@@ -37,11 +36,21 @@ div{
   margin-left: 190px; /* Same as the width of the sidenav */
   font-size: 28px; /* Increased text to enable scrolling */
   padding: 0px 10px;
-  margin-top: 30px;
-  margin-block-end: auto;
-  overflow: hidden;
+  margin-top: 0px;
+  margin-block-end:auto;
+  overflow:visible;
   vertical-align: auto;
   background-color: lightgrey;
+  background-size: cover;
+  
+}
+html{
+  position: fixed;
+  top:0;
+  bottom:0;
+  left:0;
+  right:0;
+  background-size: cover;
 }
 body{
   font-family: "Lato", sans-serif;
@@ -62,46 +71,82 @@ body{
   color: black;
   text-align: center;
   background-color: beige;
+  margin-top: 0%;
+  background-size: 100%;
 }
 
 /* Columns */
+.column{
+  width: 20%;
+}
 .col-mon{
   float:left;
-  width: 10%;
+  width: 150px;
   background-color: rebeccapurple;
 }
 .col-tues{
   float: left;
-  width: 10%;
+  width: 150px;
   background-color: red;
 }
 .col-wed{
   float: left;
-  width: 10%;
+  width: 150px;
   background-color: blue;
 }
 .col-thurs{
   float: left;
-  width: 10%;
+  width: 150px;
   background-color: yellow;
 }
 .col-fri{
   float: left;
-  width: 10%;
+  width: 150px;
   background-color: green;
 }
 .col-sat{
   float: left;
-  width: 10%;
+  width: 150px;
   background-color: orange;
 }
 .col-sun{
   float: left;
-  width: 10%;
+  margin-left: 90px;
+  width: 150px;
   background-color: palevioletred;
 }
 .row:after {
   content: "";
   display: table;
   clear: both;
+  }
+  .topnav {
+    overflow: hidden;
+    background-color: #333;
+    padding-left: 10%;
+    margin-bottom: 0px;
+    background-size:100px 100px;
+  }
+  
+  .topnav a {
+    float: left;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 15px 50px;
+    text-decoration: none;
+    font-size: 17px;
+  }
+  
+  .topnav a:hover {
+    background-color: #ddd;
+    color: black;
+  }
+  
+  .topnav a.active {
+    background-color: #04AA6D;
+    color: white;
+  }
+  div{
+    width: 100%;
+    height: 100%;
   }
