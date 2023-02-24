@@ -1,7 +1,4 @@
-html{
-  height:max-content;
 
-}
 /* SideBar CSS Section */
 .sidenav{
   height: 100%;
@@ -38,10 +35,10 @@ html{
   padding: 0px 10px;
   margin-top: 0px;
   margin-block-end:auto;
-  overflow:visible;
+  overflow:scroll;
   vertical-align: auto;
   background-color: lightgrey;
-  background-size: cover;
+  /* background-size: cover; */
   
 }
 html{
@@ -61,6 +58,7 @@ body{
   bottom:0;
   left:0;
   right:0;
+  overflow:scroll;
 }
 #days{
   font-size: 15px;
@@ -79,16 +77,6 @@ body{
 .column{
   width: 20%;
 }
-.col-mon{
-  float:left;
-  width: 150px;
-  background-color: rebeccapurple;
-}
-.col-tues{
-  float: left;
-  width: 150px;
-  background-color: red;
-}
 .col-wed{
   float: left;
   width: 150px;
@@ -99,10 +87,13 @@ body{
   width: 150px;
   background-color: yellow;
 }
-.col-fri{
+.col-time{
   float: left;
-  width: 150px;
+  width: 90px;
   background-color: green;
+  font-size: small;
+  overflow:visible;
+  
 }
 .col-sat{
   float: left;
@@ -111,7 +102,7 @@ body{
 }
 .col-sun{
   float: left;
-  margin-left: 90px;
+  margin-left: 0px;
   width: 150px;
   background-color: palevioletred;
 }
@@ -123,16 +114,15 @@ body{
   .topnav {
     overflow: hidden;
     background-color: #333;
-    padding-left: 10%;
+    padding-left: 10.5%;
     margin-bottom: 0px;
-    background-size:100px 100px;
   }
   
   .topnav a {
     float: left;
     color: #f2f2f2;
     text-align: center;
-    padding: 15px 50px;
+    padding: 20px 40px;
     text-decoration: none;
     font-size: 17px;
   }
@@ -149,4 +139,15 @@ body{
   div{
     width: 100%;
     height: 100%;
+  }
+  
+  table{
+
+    border-spacing: 10px;
+  }
+  th, td {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 5px;
+    padding-right: 5px;
   }
