@@ -34,7 +34,7 @@
   font-size: 28px; /* Increased text to enable scrolling */
   padding: 0px 10px;
   margin-top: 0px;
-  margin-block-end:auto;
+  margin-right:20px;
   overflow:scroll;
   vertical-align: auto;
   background-color: lightgrey;
@@ -77,30 +77,64 @@ body{
 .column{
   width: 20%;
 }
-.col-wed{
-  float: left;
-  width: 150px;
-  background-color: blue;
-}
-.col-thurs{
-  float: left;
-  width: 150px;
-  background-color: yellow;
-}
-.col-time{
+.table tbody td{
   float: left;
   width: 90px;
   background-color: green;
-  font-size: small;
+  font-size: medium;
   overflow:visible;
-  
+  text-align:center;
 }
-.col-sat{
+.table thead th:first-child{
+  background-color: green; 
   float: left;
+  width: 90px;
+}
+.table thead th:nth-child(2),
+.table tbody td:nth-child(2){
+  float: left;
+  margin-left: 0px;
+  width: 150px;
+  background-color: palevioletred;
+}
+.table thead th:nth-child(3){
+  float: left;
+  margin-left: 0px;
+  width: 150px;
+  background-color: teal;
+}
+.table thead th:nth-child(4){
+  float: left;
+  margin-left: 0px;
+  width: 150px;
+  background-color: cyan;
+}
+.table thead th:nth-child(5){
+  float: left;
+  margin-left: 0px;
+  width: 150px;
+  background-color: skyblue;
+}
+.table thead th:nth-child(6){
+  float: left;
+  margin-left: 0px;
+  width: 150px;
+  background-color: yellow;
+}
+.table thead th:nth-child(7){
+  float: left;
+  margin-left: 0px;
+  width: 150px;
+  background-color: purple;
+}
+.table thead th:nth-child(8){
+  float: left;
+  margin-left: 0px;
   width: 150px;
   background-color: orange;
 }
-.col-sun{
+}
+.table thead th:nth-child(8){
   float: left;
   margin-left: 0px;
   width: 150px;
@@ -141,10 +175,6 @@ body{
     height: 100%;
   }
   
-  table{
-
-    border-spacing: 10px;
-  }
   th, td {
     padding-top: 5px;
     padding-bottom: 5px;
