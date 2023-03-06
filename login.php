@@ -2,8 +2,8 @@
 
 <?php
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && ($_POST['username'] == 'devin') && ($_POST['password'] == 'password')) {
-    header('Location: home.php');
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && ($_POST['username'] == 'user') && ($_POST['password'] == 'password')) {
+    header('Location: index.php');
     exit;
     
 }
