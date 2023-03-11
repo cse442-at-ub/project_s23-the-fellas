@@ -84,6 +84,7 @@ ul {
   overflow: hidden;
   background-color: #333;
   font-family: sans-serif;
+  z-index: 1;
 }
 
 li {
