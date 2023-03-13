@@ -2,7 +2,9 @@
 include 'CalCode.php';
 $calendar = new Calendar('2023-03-13');
 $calendar->add_event('Birthday', '2023-03-03', 1, 'green');
-$calendar->add_event($_POST["title"], substr($_POST["date-time"], 0, 10), 1, 'red');
+if(isset($_POST["title"], $_POST["date-time"])) {
+    $calendar->add_event($_POST["title"], substr($_POST["date-time"], 0, 10), 1, 'red');
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -54,7 +56,6 @@ $calendar->add_event($_POST["title"], substr($_POST["date-time"], 0, 10), 1, 're
 		  <div class="main">
 		  <div class="content home">
 			<?=$calendar?>
-              <?php echo substr($_POST["date-time"], 0, 10);?>
 		</div>
               <script src="modal.js"></script>
 	</body>
