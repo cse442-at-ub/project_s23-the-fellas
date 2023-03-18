@@ -1,5 +1,5 @@
 <?php
-include 'ProjectPHP/CalCode.php';
+include 'test.php';
 $calendar = new Calendar('2021-02-03');
 $calendar->add_event('Birthday', '2021-02-03', 1, 'green');
 $calendar->add_event('Doctors', '2021-02-04', 1, 'red');
@@ -13,23 +13,6 @@ $calendar->add_event('Holiday', '2021-02-16', 7);
 <link rel="stylesheet" href="column.css">
 </head>
 <body>
-<!-- Pop-up modal form for adding events. -->
-<div id="myModal" class="modal">
-
-    <!-- Modal content -->
-    <div class="modal-content">
-        <span class="close">&times;</span>
-        <p>Add event details here:</p>
-        <form action="addEvent.php" method="post">
-            <label for="event-title-input">Event Title:</label>
-            <input type="text" id="event-title-input" class="modal-input"><br>
-            <label for="event-datetime-input">Event Date and Time:</label>
-            <input type="datetime-local" id="event-datetime-input" class="modal-input"><br>
-            <input type="submit">
-        </form>
-    </div>
-</div>
-
 <h1 id="mainHead">
   <div class="topnav">
     <a class="active" href="#Active View">Active View</a>
@@ -49,8 +32,6 @@ $calendar->add_event('Holiday', '2021-02-16', 7);
   </ol></div>
 <div class="main">
 
-	</div>
-<script src="modal.js"></script>
+	</div>    
 </body>
-
 </html>
