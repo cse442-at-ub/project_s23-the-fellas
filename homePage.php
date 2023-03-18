@@ -12,8 +12,8 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="data/home.css">
-<link rel="stylesheet" href="data/column.css">
+<link rel="stylesheet" href="css/home.css">
+<link rel="stylesheet" href="css/column.css">
 </head>
 <body>
 <h1 id="mainHead">
