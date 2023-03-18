@@ -11,8 +11,8 @@ if(isset($_POST["title"], $_POST["date-time"])) {
 	<head>
 		<meta charset="utf-8">
 		<title>Event Calendar</title>
-		<link href="Style.css" rel="stylesheet" type="text/css">
-		<link href="Calendar.css" rel="stylesheet" type="text/css">
+		<link href="ProjectPHP/style.css" rel="stylesheet" type="text/css">
+		<link href="ProjectPHP/Calendar.css" rel="stylesheet" type="text/css">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 	</head>
 	<body>
@@ -57,6 +57,6 @@ if(isset($_POST["title"], $_POST["date-time"])) {
 		  <div class="content home">
 			<?=$calendar?>
 		</div>
-              <script src="modal.js"></script>
+              <script src="ProjectPHP/modal.js"></script>
 	</body>
 </html>
