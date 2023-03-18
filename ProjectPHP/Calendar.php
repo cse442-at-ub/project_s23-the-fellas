@@ -1,20 +1,37 @@
 <?php
 include 'CalCode.php';
-$calendar = new Calendar('2023-03-06');
+$calendar = new Calendar('2023-03-13');
 $calendar->add_event('Birthday', '2023-03-03', 1, 'green');
-$calendar->add_event('Doctors', '2023-03-04', 1, 'red');
-$calendar->add_event('Holiday', '2023-03-16', 7);
+if(isset($_POST["title"], $_POST["date-time"])) {
+    $calendar->add_event($_POST["title"], substr($_POST["date-time"], 0, 10), 1, 'red');
+}
 ?>
 <!DOCTYPE html>
 <html>
 	<head>
 		<meta charset="utf-8">
 		<title>Event Calendar</title>
-		<link href="Style.css" rel="stylesheet" type="text/css">
-		<link href="Calendar.css" rel="stylesheet" type="text/css">
+		<link href="ProjectPHP/style.css" rel="stylesheet" type="text/css">
+		<link href="ProjectPHP/Calendar.css" rel="stylesheet" type="text/css">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 	</head>
 	<body>
+    <!-- Pop-up modal form for adding events. -->
+    <div id="myModal" class="modal">
+
+        <!-- Modal content -->
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <p>Add event details here:</p>
+            <form action="#" method="post"> <!-- Server returns this file, Calendar.php, upon form submission -->
+                <label for="event-title-input">Event Title:</label>
+                <input type="text" id="event-title-input" class="modal-input" name="title"><br>
+                <label for="event-datetime-input">Event Date and Time:</label>
+                <input type="datetime-local" id="event-datetime-input" class="modal-input" name="date-time"><br>
+                <input type="submit">
+            </form>
+        </div>
+    </div>
 	    <!-- <nav class="navtop"> -->
 	    <!-- <div> -->
 		<h1 id="mainHead">
@@ -25,7 +42,7 @@ $calendar->add_event('Holiday', '2023-03-16', 7);
 		<!-- </div> -->
 	    <!-- </nav> -->
 		<div class="sidenav">
-			<a id="sideAnchor">  <button id="sideButton" type="button" onclick="alert('Add Event')">Add Event</button></a>
+			<a id="sideAnchor">  <button id="sideButton" type="button">Add Event</button></a>
   			<h1 id="sideHeader">Sunday's Events</h1>
   			<ol>
     		<li>1:00 AM Testing</li>
@@ -40,5 +57,6 @@ $calendar->add_event('Holiday', '2023-03-16', 7);
 		  <div class="content home">
 			<?=$calendar?>
 		</div>
+              <script src="ProjectPHP/modal.js"></script>
 	</body>
 </html>
