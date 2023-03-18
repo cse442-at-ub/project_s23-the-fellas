@@ -1,0 +1,63 @@
+/* Set background color to dark grey */
+body {
+    background-color: #1c1c1c;
+  }
+  
+  /* Set text color to light grey */
+  body, input, select, button {
+    color: #ddd;
+  }
+  
+  /* Set color of placeholder text to light grey */
+  ::placeholder {
+    color: #ddd;
+  }
+  
+  /* Set border color to light grey */
+  input[type=text], input[type=password], select {
+    border: 1px solid #ddd;
+  }
+  
+  /* Set background color of button to black */
+  button[type=submit] {
+    background-color: #000;
+  }
+  
+  /* Set color of button text to light grey */
+  button[type=submit] {
+    color: #ddd;
+  }
+
+  #bio {
+    width: 100%;
+    height: 150px;
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    background: #f2f2f2;
+    box-shadow: inset 0 0 5px #ccc;
+  }
+  
+  #bio:focus {
+    outline: none;
+    background: #fff;
+    box-shadow: inset 0 0 5px #bbb;
+  }
+  
+  .bio-edit-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    background: #4CAF50;
+    color: #fff;
+    cursor: pointer;
+  }
+  
+  .bio-edit-btn:hover {
+    background: #3e8e41;
+  }
+
+  
+  

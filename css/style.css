@@ -1,0 +1,113 @@
+.header h1{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #ffffff;
+}
+body {
+    font-family: Arial, sans-serif;
+    background-color: #303030;
+}
+
+form {
+    background-color: #fff;
+    border-radius: 5px;
+    padding: 20px;
+    width: 300px;
+    margin: 0 auto;
+    margin-top: 100px;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+input[type="text"],
+input[type="password"] {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+}
+
+input[type="submit"] {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    width: 100%;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background-color: #555;
+}
+
+a:link {
+  color: gray;
+}
+
+a:visited {
+  color: green;
+}
+
+a:hover {
+  color: rebeccapurple;
+}
+
+a:active {
+  color: teal;
+}
+
+#navigation {
+  
+}
+
+p {
+  font-size: 120%;
+  color: dimgray;
+}
+
+#contents {
+	float: right;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+  font-family: sans-serif;
+  z-index: 1;
+  align-items: stretch;
+  display: flex;
+}
+
+li {
+  float: left;
+  flex: 1;
+}
+img {
+  max-width: 100%; /* limit the image width to the size of its container */
+  height: auto; /* maintain the aspect ratio */
+  max-height: 20px; /* limit the image height to 50 pixels */
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+/* Change the link color to white on hover */
+li a:hover {
+  background-color: #fff;
+}
