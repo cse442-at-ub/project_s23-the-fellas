@@ -1,0 +1,97 @@
+.calendar {
+    display: flex;
+    flex-flow: column;
+    overflow: scroll;
+}
+.calendar .header .month-year {
+    font-size: 20px;
+    font-weight: bold;
+    color: #636e73;
+    padding: 20px 0;
+}
+.header{
+    height: 10%;
+}
+.calendar .days {
+    display: flex;
+    flex-flow: wrap;
+    flex-wrap: wrap;
+}
+.calendar .days .day_name {
+    width: calc(87.5% / 7);
+    height: 5%;
+    border-right: 1px solid #2c7aca;
+    /* padding: 10px; */
+    text-transform: uppercase;
+    font-size: large;
+    font-weight: bold;
+    color: #818589;
+    color: #fff;
+    background-color: #448cd6;
+}
+.calendar .days .day_name:nth-child(7) {
+    border: none;
+}
+.calendar .days .day_num {
+    display: flex;
+    flex-flow: column;
+    width: calc(76.75% / 7);
+    width: calc(87.5% / 7);
+    border-right: 1px solid #e6e9ea;
+    /* border-bottom: 1px solid #e6e9ea; */
+    /* padding: 10px; */
+    /* padding: 1%; */
+    font-weight: bold;
+    color: #7c878d;
+    cursor: pointer;
+    /* min-height: 100px; */
+    min-height: 20%;
+    /* min-height: 5%; */
+    height: 5%;
+    background-color: white;
+}
+.calendar .days .day_num span {
+    display: inline-flex;
+    width: 30px;
+    width: 10%;
+    font-size: 14px;
+    font-size: small;
+}
+.calendar .days .day_num .event {
+    margin-top: 10px;
+    margin-bottom: 200%;
+    font-weight: 500;
+    font-size: 14px;
+    padding: 3px 6px;
+    border-radius: 4px;
+    background-color: #f7c30d;
+    color: #fff;
+    word-wrap: break-word;
+}
+.calendar .days .day_num .event.green {
+    background-color: #51ce57;
+}
+.calendar .days .day_num .event.blue {
+    background-color: #518fce;
+}
+.calendar .days .day_num .event.red {
+    background-color: #ce5151;
+}
+.calendar .days .day_num:nth-child(7n+1) {
+    border-left: 1px solid #e6e9ea;
+}
+.calendar .days .day_num:hover {
+    background-color: #fdfdfd;
+    background-color: gainsboro;
+}
+.calendar .days .day_num.ignore {
+    background-color: #fdfdfd;
+    background-color: black;
+    color: #ced2d4;
+    cursor: inherit;
+}
+.calendar .days .day_num.selected {
+    background-color: #f1f2f3;
+    background-color: gainsboro;
+    cursor: inherit;
+}
