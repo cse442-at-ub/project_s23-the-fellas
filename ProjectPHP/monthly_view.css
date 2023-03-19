@@ -5,7 +5,7 @@
   width: 15%;
   position: fixed;
   z-index: 0;
-  top: 0;
+  top: 56px;
   left: 0;
   background-color: powderblue;
   overflow-x: hidden;
