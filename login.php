@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['username']) && isset($
 		$_SESSION['loggedin'] = true;
   
   		$_SESSION['username'] = $username;
-        //echo password_hash($password, PASSWORD_DEFAULT);
+        //echo password_hash($password, PASSWORD_DEFAULT); // get hashed passwords using PASSWORD_DEFAULT algorithm
 
         header('Location: index.php');
         exit;
