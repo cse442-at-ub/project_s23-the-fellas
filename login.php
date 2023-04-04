@@ -14,7 +14,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['username']) && isset($
     if (check_credentials($username, $password) == true) {
 		$_SESSION['loggedin'] = true;
   
-  		$_SESSION['username'] = $username; 
+  		$_SESSION['username'] = $username;
+        //echo password_hash($password, PASSWORD_DEFAULT); // get hashed passwords using PASSWORD_DEFAULT algorithm
+
         header('Location: index.php');
         exit;
     } else {

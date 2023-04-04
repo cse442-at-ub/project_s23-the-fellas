@@ -1,0 +1,231 @@
+/* SideBar CSS Section */
+.sidenav{
+  height: 100%;
+  width: 20%;
+  position: fixed;
+  z-index: 0;
+  top: 0;
+  left: 0;
+  background-color: powderblue;
+  overflow-x: hidden;
+  padding-top: 3%;
+  font-size: 2vh;
+  /* Sdisplay: block; */
+}
+.sidenav a{
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 25px;
+  color: black;
+  display: block;
+}
+.sidenav a:hover{
+  color: #f1f1f1;
+}
+#sideHeader{
+  margin-top: 5%;
+  color: black;
+  text-align: center;
+}
+#sideAnchor{
+  text-align: center;
+  background-color: powderblue;
+}
+#sideButton{
+  font-size: xx-large;
+  font-size: large;
+  background-color: white;
+}
+/* Main and Body */
+.main{
+  /* margin-left: 190px; Same as the width of the sidenav */
+  margin-left: 20%; /* Same as the width of the sidenav */
+  font-size: 28px; /* Increased text to enable scrolling */
+  /* padding-bottom: 0%; */
+  width: 100%;
+  height: 100%;
+  margin-top: 0px;
+  /* margin-right:20px; */
+  overflow:scroll;
+  vertical-align: auto;
+  background-color: lightgrey;
+  /* background-size: cover; */
+  
+}
+html{
+  /* position: fixed;
+  top:0;
+  bottom:0;
+  left:0;
+  right:0;
+  background-size: cover; */
+  width: 100%;
+  height: 100%;
+}
+body{
+  font-family: "Lato", sans-serif;
+  /* font-family: Verdana; */
+  background-color: white;
+  margin: 0;
+  position:fixed;
+  top:0;
+  bottom:0;
+  left:0;
+  right:0;
+  /* overflow:auto; */
+}
+#days{
+  font-size: 15px;
+  text-align: center;
+  margin-top: 70px;
+}
+#mainHead{
+  color: black;
+  text-align: center;
+  background-color: beige;
+  margin-top: 0;
+  margin-bottom: 0;
+  background-size: 100%;
+}
+
+/*  Tables */
+
+.table tbody td{
+  float: left;
+  /* width: 90px; */
+  width: 8%;
+  background-color: green;
+  font-size: medium;
+  overflow:visible;
+  text-align:center;
+}
+.table thead th:first-child{
+  background-color: green;
+  margin-left: 0px; 
+  float: left;
+  /* width: 90px; */
+  width: 8%;
+}
+.table thead th:nth-child(2),
+.table tbody td:nth-child(2){
+  float: left;
+  margin-left: 0px;
+  /* width: 150px; */
+  width: 12%;
+  background-color: palevioletred;
+}
+.table thead th:nth-child(3){
+  float: left;
+  margin-left: 0px;
+  /* width: 150px; */
+  width: 12%;
+  background-color: teal;
+}
+.table thead th:nth-child(4){
+  float: left;
+  margin-left: 0px;
+  /* width: 150px; */
+  width: 12%;
+  background-color: cyan;
+}
+.table thead th:nth-child(5){
+  float: left;
+  margin-left: 0px;
+  /* width: 150px; */
+  width: 12%;
+  background-color: skyblue;
+}
+.table thead th:nth-child(6){
+  float: left;
+  margin-left: 0px;
+  /* width: 150px; */
+  width: 12%;
+  background-color: darkgray;
+}
+.table thead th:nth-child(7){
+  float: left;
+  margin-left: 0px;
+  /* width: 150px; */
+  width: 12%;
+  background-color: purple;
+}
+.table thead th:nth-child(8){
+  float: left;
+  margin-right: auto;
+  /* width: 150px; */
+  width: 12%;
+  background-color: orange;
+}
+.table thead th:nth-child(8){
+  float: left;
+  margin-left: 0px;
+  /* width: 150px; */
+  width: 12%;
+  background-color: white;
+}
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+  }
+
+/* Top Nav Bar */
+.topnav {
+  overflow: hidden;
+  background-color: powderblue;
+  padding-left: 20%;
+  margin-bottom: 0px;
+  text-align: center;
+  }
+#pTopNav{
+  color: black;
+  vertical-align: bottom;
+  background-color:powderblue;
+  }
+.topnav a {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 20px 40px;
+  text-decoration: none;
+  font-size: 17px;
+  }
+.topnav a:hover {
+  background-color: #04AA6D;
+  color: black;
+  }
+.topnav a.active {
+  background-color: #333;
+  color: white;
+  }
+/* End Top Nav */
+
+
+  div{
+    width:100%;
+    height: 100%;
+  }
+  
+  th, td {
+    /* padding-top: 15px;
+    padding-bottom: 15px; */
+    /* padding-left: 5px;
+    padding-right: 5px; */
+    height: 100%;
+    border: 1px  solid black;
+  }
+  table{
+    width: 82%;
+    margin-left: 0px;
+    height: 95%;
+    overflow: scroll;
+    /* align-items: center; */
+  }
+  tr{
+    vertical-align: middle;
+  }
+  th{
+    /* padding-left: 1%; */
+    font-size: medium;
+    overflow:auto
+  }
