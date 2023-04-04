@@ -14,8 +14,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['username']) && isset($
     if (check_credentials($username, $password) == true) {
 		$_SESSION['loggedin'] = true;
   
-  		$_SESSION['username'] = $username; 
-        header('Location: index.php');
+  		$_SESSION['username'] = $username;
+        //echo password_hash($password, PASSWORD_DEFAULT); // test for getting hashed password strs
+
+        header('Location: index.php'); // uncomment this later, it's part of the actual code
         exit;
     } else {
         // Display an error message if the credentials are not valid
