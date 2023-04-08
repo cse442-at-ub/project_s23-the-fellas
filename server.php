@@ -44,6 +44,54 @@ function check_credentials($username, $password) {
     mysqli_close($db);
 }
 
+function arrayOfEvents($username) {
+  $db = mysqli_connect("oceanus.cse.buffalo.edu:3306", "jtsang3", "50301665", "cse442_2023_spring_team_c_db");
+  if (!$db) {
+    die("Connection failed: " . mysqli_connect_error());
+  }
+  $sql = "SELECT * FROM events WHERE userID = '$username'";
+  $result = mysqli_query($db, $sql);
+  $events = array();
+  while ($row = mysqli_fetch_assoc($result)) {
+    $events[] = $row;
+  }
+  mysqli_close($db);
+  return $events;
+
+}
+
+function addEvent($username, $title, $dateTime, $color) {
+  $db = mysqli_connect("oceanus.cse.buffalo.edu:3306", "jtsang3", "50301665", "cse442_2023_spring_team_c_db");
+  if (!$db) {
+      die("Connection failed: " . mysqli_connect_error());
+  }
+  $sql = "INSERT INTO events (userID, title, dateTime, color) VALUES ('$username', '$title', '$dateTime', '$color')";
+  $result = mysqli_query($db, $sql);
+  if (!$result) {
+      die("Error adding event: " . mysqli_error($db));
+  }
+  mysqli_close($db);
+
+}
+
+
+//Just used to delete some incorrectly formed items (keeping for future reference)
+function deleteTestEvents() {
+  $db = mysqli_connect("oceanus.cse.buffalo.edu:3306", "jtsang3", "50301665", "cse442_2023_spring_team_c_db");
+  if (!$db) {
+    die("Connection failed: " . mysqli_connect_error());
+  }
+
+  $sql = "DELETE FROM events WHERE userID='devincle'";
+  $result = mysqli_query($db, $sql);
+
+  if (!$result) {
+    die("Error deleting events: " . mysqli_error($db));
+  }
+
+  mysqli_close($db);
+}
+
 
 
 ?>
