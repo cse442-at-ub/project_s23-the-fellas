@@ -4,8 +4,22 @@ session_start(); // Start the session
 include 'ProjectPHP/CalCode.php';
 include 'server.php';
 
+if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
+    // Redirect to the login page
+    header('Location: login.php');
+    exit; // Exit the script
+}
+
 $calendar = new Calendar();
 $calendar->add_event('Birthday', '2023-03-03', 1, 'green');
+
+
+$eventsArray = arrayOfEvents($_SESSION['username']);
+
+foreach ($eventsArray as $event) {
+	$calendar->add_event($event["title"], $event["dateTime"], 1, 'red');
+	// echo '<script>alert("' . $event["userID"] . $event["title"] . $event["dateTime"] .  '");</script>';
+}
 
 //THIS PART RUNS EVERYTIME REFRESHED IDK WHY HELP
 if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST["title"], $_POST["date-time"])) {
@@ -14,21 +28,14 @@ if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST["title"], $_POST["date-
 	echo '<script>alert("' . $_POST["title"] . '");</script>';
     unset($_POST["title"]);
     unset($_POST["date-time"]);
+	
+	header("Location: " . $_SERVER['PHP_SELF']); // Redirect to the same page
+    exit;
 }
 
 // Check if the 'loggedin' variable is not set or has a value of false
-if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
-    // Redirect to the login page
-    header('Location: login.php');
-    exit; // Exit the script
-}
 
-$eventsArray = arrayOfEvents($_SESSION['username']);
 
-foreach ($eventsArray as $event) {
-	$calendar->add_event($event["title"], $event["dateTime"], 1, 'red');
-	// echo '<script>alert("' . $event["userID"] . $event["title"] . $event["dateTime"] .  '");</script>';
-}
 
 ?>
 <!DOCTYPE html>
