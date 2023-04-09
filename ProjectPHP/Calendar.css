@@ -64,10 +64,26 @@
     font-size: 14px;
     padding: 3px 6px;
     border-radius: 4px;
-    background-color: #f7c30d;
-    color: #fff;
+    background-color: #2a2513;
+    color: #ffffff;
     word-wrap: break-word;
+    z-index: 1;
 }
+
+.calendar .days .day_num .event-list li {
+    display: block !important;
+}
+
+.calendar .days .day_num .event-list {
+    background-color: white;
+
+}
+.calendar .days .day_num .event-list:hover {
+    background-color: #fdfdfd;
+    background-color: gainsboro;
+}
+
+
 .calendar .days .day_num .event.green {
     background-color: #51ce57;
 }
@@ -75,7 +91,7 @@
     background-color: #518fce;
 }
 .calendar .days .day_num .event.red {
-    background-color: #ce5151;
+    background-color: #f55151;
 }
 .calendar .days .day_num:nth-child(7n+1) {
     border-left: 1px solid #e6e9ea;

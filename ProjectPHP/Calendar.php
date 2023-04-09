@@ -11,7 +11,6 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
 }
 
 $calendar = new Calendar();
-$calendar->add_event('Birthday', '2023-03-03', 1, 'green');
 
 
 $eventsArray = arrayOfEvents($_SESSION['username']);
@@ -23,12 +22,10 @@ foreach ($eventsArray as $event) {
 
 //THIS PART RUNS EVERYTIME REFRESHED IDK WHY HELP
 if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST["title"], $_POST["date-time"])) {
-    // $calendar->add_event($_POST["title"], substr($_POST["date-time"], 0, 10), 1, 'red');
 	addEvent($_SESSION['username'], $_POST["title"], substr($_POST["date-time"], 0, 10), "red");
-	echo '<script>alert("' . $_POST["title"] . '");</script>';
     unset($_POST["title"]);
     unset($_POST["date-time"]);
-	
+
 	header("Location: " . $_SERVER['PHP_SELF']); // Redirect to the same page
     exit;
 }

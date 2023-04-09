@@ -47,15 +47,19 @@ class Calendar {
             }
             $html .= '<div class="day_num' . $selected . '">';
             $html .= '<span>' . $i . '</span>';
+            $html .= '<ul class="event-list">';
             foreach ($this->events as $event) {
                 for ($d = 0; $d <= ($event[2]-1); $d++) {
                     if (date('y-m-d', strtotime($this->active_year . '-' . $this->active_month . '-' . $i . ' -' . $d . ' day')) == date('y-m-d', strtotime($event[1]))) {
-                        $html .= '<div class="event' . $event[3] . '">';
+                        $html .= '<div>';
+                        $html .= '<li class="event' . $event[3] . '">';
                         $html .= $event[0];
+                        $html .= '</li>';
                         $html .= '</div>';
                     }
                 }
             }
+            $html .= '</ul>';
             $html .= '</div>';
         }
         for ($i = 1; $i <= (42-$num_days-max($first_day_of_week, 0)); $i++) {
