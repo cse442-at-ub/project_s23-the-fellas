@@ -58,8 +58,8 @@
     font-size: small;
 }
 .calendar .days .day_num .event {
-    margin-top: 10px;
-    margin-bottom: 200%;
+    width: 100%;
+    display: block;
     font-weight: 500;
     font-size: 14px;
     padding: 3px 6px;
@@ -68,16 +68,30 @@
     color: #ffffff;
     word-wrap: break-word;
     z-index: 1;
+    margin-bottom: 5px;
+
 }
 
-.calendar .days .day_num .event-list li {
-    display: block !important;
+.calendar .days .day_num .event-list .event {
+    display: block;
+    width: 100%;
+    padding: 3.5px;
 }
+
 
 .calendar .days .day_num .event-list {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    z-index: 1; /* lower than modal */
+    margin-top: 10px;
+    padding: 5px;
     background-color: white;
+    border-radius: 4px;
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.15);
+    overflow-y: scroll; 
 
-}
+  }
 .calendar .days .day_num .event-list:hover {
     background-color: #fdfdfd;
     background-color: gainsboro;
