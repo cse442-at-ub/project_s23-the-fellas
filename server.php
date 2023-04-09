@@ -93,5 +93,22 @@ function deleteTestEvents() {
 }
 
 
+//Function for the side bar code
+function loadTodaysEvents($username, $date) {
+  $db = mysqli_connect("oceanus.cse.buffalo.edu:3306", "jtsang3", "50301665", "cse442_2023_spring_team_c_db");
+  if (!$db) {
+    die("Connection failed: " . mysqli_connect_error());
+  }
+  
+  $sql = "SELECT * FROM events WHERE dateTime = '$date' AND userID = '$username'";
+  $result = mysqli_query($db, $sql);
+  $events = array();
+  while ($row = mysqli_fetch_assoc($result)) {
+    $events[] = $row;
+  }
+  mysqli_close($db);
+  return $events;
+}
+
 
 ?>

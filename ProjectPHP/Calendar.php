@@ -66,22 +66,31 @@ if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST["title"], $_POST["date-
 		<h1 id="mainHead">
   			<div class="topnav">
    				<a href="#Active View2">Active View</a>
-				<a id="pTopNav">Welcome, Victor E. Bull</a>
+				<a id="pTopNav">Welcome, <?php echo $_SESSION['username']?></a>
     		</div></h1>
 		<!-- </div> -->
 	    <!-- </nav> -->
 		<div class="sidenav">
-			<a id="sideAnchor">  <button id="sideButton" type="button">Add Event</button></a>
-  			<h1 id="sideHeader">Sunday's Events</h1>
-  			<ol>
-    		<li>1:00 AM Testing</li>
-			<br>
-    		<li>2:00 AM Testing</li>
-			<br>
-    		<li>3:00 AM Testing</li>
-			<br>
-    		<li>4:00 AM Testing</li>
-  		</ol></div>
+			<a id="sideAnchor">  
+				<button id="sideButton" type="button">Add Event</button>
+			</a>
+			<h1 id="sideHeader">
+				<?php 
+					date_default_timezone_set('America/New_York');
+					echo 'Todays Events';
+					$current_date = date('Y-m-d'); 
+					$todaysEvents = loadTodaysEvents($_SESSION['username'], $current_date);
+					
+				?>
+			</h1>
+			<ol>
+				<?php 
+					foreach ($todaysEvents as $event) {
+						echo "<li>" . $event["title"] . "</li><br><br><br>"; // output each event date and title
+					}
+				?>
+			</ol>
+		</div>
 		  <div class="main">
 		  <div class="content home">
 			<?=$calendar?>
