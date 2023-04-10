@@ -43,6 +43,21 @@ if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST["title"], $_POST["date-
 		<link href="ProjectPHP/monthly_view.css" rel="stylesheet" type="text/css">
 		<link href="ProjectPHP/Calendar.css" rel="stylesheet" type="text/css">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<script>
+		function validateForm() {
+		  var x = document.forms["InputForm"]["title"].value;
+		  var y = document.forms["InputForm"]["date-time"].value;
+		  document.forms["InputForm"]["title"].value = x.replace("'","\\\'")
+		  if (x == "" || x == null) {
+			alert("Event Title must be filled out");
+			return false;
+		  }
+		  if (y == "" || x == null) {
+			alert("Event Date must be filled out");
+			return false;
+		  }
+		}
+		</script>
 	</head>
 	<body>
     <!-- Pop-up modal form for adding events. -->
@@ -52,7 +67,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST["title"], $_POST["date-
         <div class="modal-content">
             <span class="close">&times;</span>
             <p>Add event details here:</p>
-            <form action="#" method="post"> <!-- Server returns this file, Calendar.php, upon form submission -->
+            <form action="#" method="post" onsubmit="return validateForm()" name="InputForm"> <!-- Server returns this file, Calendar.php, upon form submission -->
                 <label for="event-title-input">Event Title:</label>
                 <input type="text" id="event-title-input" class="modal-input" name="title"><br>
                 <label for="event-datetime-input">Event Date and Time:</label>
@@ -61,6 +76,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST["title"], $_POST["date-
             </form>
         </div>
     </div>
+	
 	    <!-- <nav class="navtop"> -->
 	    <!-- <div> -->
 		<h1 id="mainHead">
