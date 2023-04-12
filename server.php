@@ -1,7 +1,8 @@
 <?php
 
 
-
+//The login functionality, checks if username and password exists in the database
+//Passwords are hashed and salted
 function check_credentials($username, $password) {
 
     // Connect to the database
@@ -44,6 +45,7 @@ function check_credentials($username, $password) {
     mysqli_close($db);
 }
 
+//Returns the entire array of events for a given user
 function arrayOfEvents($username) {
   $db = mysqli_connect("oceanus.cse.buffalo.edu:3306", "jtsang3", "50301665", "cse442_2023_spring_team_c_db");
   if (!$db) {
@@ -60,7 +62,9 @@ function arrayOfEvents($username) {
 
 }
 
+//Function for adding an event to the database
 function addEvent($username, $title, $dateTime, $color) {
+
   $db = mysqli_connect("oceanus.cse.buffalo.edu:3306", "jtsang3", "50301665", "cse442_2023_spring_team_c_db");
   if (!$db) {
       die("Connection failed: " . mysqli_connect_error());
@@ -108,6 +112,53 @@ function loadTodaysEvents($username, $date) {
   }
   mysqli_close($db);
   return $events;
+}
+
+
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+  // Get the data from the POST request
+  $action = $_POST['action'];
+  if ($action == 'updateEvent') {
+      $title = $_POST['title'];
+      $dateTime = $_POST['dateTime'];
+      $color = $_POST['color'];
+      $eventID = $_POST['eventID'];
+
+      // Call the updateEvent function with the data
+      updateEvent($title, $dateTime, $color, $eventID);
+  }
+}
+function updateEvent($title, $dateTime, $color, $eventID) {
+
+  $db = mysqli_connect("oceanus.cse.buffalo.edu:3306", "jtsang3", "50301665", "cse442_2023_spring_team_c_db");
+  if (!$db) {
+      die("Connection failed: " . mysqli_connect_error());
+  }
+  
+
+  // Prepare the SQL update statement
+  $sql = "UPDATE events SET title = ?, dateTime = ?, color = ? WHERE eventID = ?";
+
+  // Prepare the statement and bind the parameters
+  if ($stmt = mysqli_prepare($db, $sql)) {
+      mysqli_stmt_bind_param($stmt, "sssi", $title, $dateTime, $color, $eventID);
+
+      // Execute the statement
+      if (mysqli_stmt_execute($stmt)) {
+          echo "Event with ID $eventID has been updated successfully.";
+      } else {
+          echo "Error updating event with ID $eventID: " . mysqli_stmt_error($stmt);
+      }
+
+      // Close the prepared statement
+      mysqli_stmt_close($stmt);
+  } else {
+      echo "Error preparing the statement: " . mysqli_error($db);
+  }
+
+  // Close the database connection
+  mysqli_close($db);
 }
 
 

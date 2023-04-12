@@ -16,7 +16,7 @@ $calendar = new Calendar();
 $eventsArray = arrayOfEvents($_SESSION['username']);
 
 foreach ($eventsArray as $event) {
-	$calendar->add_event($event["title"], $event["dateTime"], 1, 'red');
+	$calendar->add_event($event["title"], $event["dateTime"], 1, 'red', $event["eventID"]);
 	// echo '<script>alert("' . $event["userID"] . $event["title"] . $event["dateTime"] .  '");</script>';
 }
 
@@ -43,6 +43,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST["title"], $_POST["date-
 		<link href="ProjectPHP/monthly_view.css" rel="stylesheet" type="text/css">
 		<link href="ProjectPHP/Calendar.css" rel="stylesheet" type="text/css">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
+
 	</head>
 	<body>
     <!-- Pop-up modal form for adding events. -->
@@ -60,14 +61,34 @@ if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST["title"], $_POST["date-
                 <input type="submit">
             </form>
         </div>
+
     </div>
+	<div id="eventInfoModal" class="event-info-modal">
+		<div class="event-info-modal-content">
+			<span class="event-info-close">&times;</span>
+			<form id="eventInfoForm">
+				<input type="hidden" id="eventInfoID">
+				<label for="eventInfoTitle">Title:</label>
+				<input type="text" id="eventInfoTitle" name="title">
+				<br>
+				<label for="eventInfoDate">Date:</label>
+				<input type="date" id="eventInfoDate" name="date">
+				<br>
+				<label for="eventInfoColor">Color:</label>
+				<select id="eventInfoColor" name="color">
+					<option value="red">Red</option>
+					<option value="blue">Blue</option>
+					<option value="yellow">Yellow</option>
+					<option value="green">Green</option>
+				</select>
+				<br>
+				<button type="submit">Save Changes</button>
+			</form>
+		</div>
+	</div>
 	    <!-- <nav class="navtop"> -->
 	    <!-- <div> -->
-		<h1 id="mainHead">
-  			<div class="topnav">
-   				<a href="#Active View2">Active View</a>
-				<a id="pTopNav">Welcome, <?php echo $_SESSION['username']?></a>
-    		</div></h1>
+
 		<!-- </div> -->
 	    <!-- </nav> -->
 		<div class="sidenav">
@@ -85,9 +106,11 @@ if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST["title"], $_POST["date-
 			</h1>
 			<ol>
 				<?php 
+				echo "<div>";
 					foreach ($todaysEvents as $event) {
 						echo "<li>" . $event["title"] . "</li><br><br><br>"; // output each event date and title
 					}
+					echo "</div>";
 				?>
 			</ol>
 		</div>
@@ -96,5 +119,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST["title"], $_POST["date-
 			<?=$calendar?>
 		</div>
               <script src="ProjectPHP/modal.js"></script>
+			  <script src="ProjectPHP/calendar.js"></script>
+
 	</body>
 </html>
