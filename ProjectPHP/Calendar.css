@@ -2,35 +2,49 @@
     display: flex;
     flex-flow: column;
     overflow: scroll;
+    width: 96.5%;
+    height: 100%;
 }
 .calendar .header .month-year {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     font-size: 20px;
     font-weight: bold;
-    color: #636e73;
-    padding: 20px 0;
+    color: #448cd6;
+    padding: 5px 0;
 }
 .header{
-    height: 10%;
+    height: 5%;
 }
 .calendar .days {
     display: flex;
     flex-flow: wrap;
     flex-wrap: wrap;
+    border-radius: 4px;
+
 }
 .calendar .days .day_name {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: calc(87.5% / 7);
     height: 5%;
     border-right: 1px solid #2c7aca;
     /* padding: 10px; */
     text-transform: uppercase;
     font-size: large;
-    font-weight: bold;
     color: #818589;
     color: #fff;
     background-color: #448cd6;
+    
+    
 }
 .calendar .days .day_name:nth-child(7) {
     border: none;
+}
+.calendar .days .day_num:hover, .calendar .days .day_num:hover .event-list {
+    background-color: gainsboro;
 }
 .calendar .days .day_num {
     display: flex;
@@ -49,6 +63,8 @@
     /* min-height: 5%; */
     height: 5%;
     background-color: white;
+    border-radius: 8px;
+
 }
 .calendar .days .day_num span {
     display: inline-flex;
@@ -58,8 +74,7 @@
     font-size: small;
 }
 .calendar .days .day_num .event {
-    margin-top: 10px;
-    margin-bottom: 200%;
+    display: block;
     font-weight: 500;
     font-size: 14px;
     padding: 3px 6px;
@@ -103,16 +118,7 @@
     background-color: #669bd0;
 }
 .calendar .days .day_num .event.red {
-    background-color: #ce5151;
-}
-.calendar .days .day_num .event.orange {
-    background-color: #e6ba3f;
-}
-.calendar .days .day_num .event.purple {
-    background-color: #f551f2;
-}
-.calendar .days .day_num .event.black {
-    background-color: #4f4e4e;
+    background-color: #f55151;
 }
 .calendar .days .day_num .event.orange {
     background-color: #e6ba3f;
@@ -126,13 +132,10 @@
 .calendar .days .day_num:nth-child(7n+1) {
     border-left: 1px solid #e6e9ea;
 }
-.calendar .days .day_num:hover {
-    background-color: #fdfdfd;
-    background-color: gainsboro;
-}
+
 .calendar .days .day_num.ignore {
     background-color: #fdfdfd;
-    background-color: black;
+    background-color: #989696;
     color: #ced2d4;
     cursor: inherit;
 }

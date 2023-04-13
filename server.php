@@ -3,7 +3,6 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-
 //The login functionality, checks if username and password exists in the database
 //Passwords are hashed and salted
 function check_credentials($username, $password) {

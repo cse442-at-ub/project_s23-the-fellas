@@ -2,14 +2,8 @@
 session_start(); // Start the session
 
 include 'ProjectPHP/CalCode.php';
+include 'server.php';
 
-$calendar = new Calendar('2023-03-13');
-$calendar->add_event('Birthday', '2023-03-03', 1, 'green');
-if(isset($_POST["title"], $_POST["date-time"])) {
-    $calendar->add_event($_POST["title"], substr($_POST["date-time"], 0, 10), 1, 'red');
-}
-
-// Check if the 'loggedin' variable is not set or has a value of false
 if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
     // Redirect to the login page
     header('Location: login.php');
@@ -49,6 +43,21 @@ if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST["title"], $_POST["date-
 		<link href="ProjectPHP/monthly_view.css" rel="stylesheet" type="text/css">
 		<link href="ProjectPHP/Calendar.css" rel="stylesheet" type="text/css">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<script>
+		function validateForm() {
+		  var x = document.forms["InputForm"]["title"].value;
+		  var y = document.forms["InputForm"]["date-time"].value;
+		  document.forms["InputForm"]["title"].value = x.replace("'","\\\'")
+		  if (x == "" || x == null) {
+			alert("Event Title must be filled out");
+			return false;
+		  }
+		  if (y == "" || x == null) {
+			alert("Event Date must be filled out");
+			return false;
+		  }
+		}
+		</script>
 	</head>
 	<body>
     <!-- Pop-up modal form for adding events. -->
@@ -58,7 +67,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST["title"], $_POST["date-
         <div class="modal-content">
             <span class="close">&times;</span>
             <p>Add event details here:</p>
-            <form action="#" method="post"> <!-- Server returns this file, Calendar.php, upon form submission -->
+            <form action="#" method="post" onsubmit="return validateForm()" name="InputForm"> <!-- Server returns this file, Calendar.php, upon form submission -->
                 <label for="event-title-input">Event Title:</label>
                 <input type="text" id="event-title-input" class="modal-input" name="title"><br>
                 <label for="event-datetime-input">Event Date and Time:</label>
@@ -66,6 +75,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST["title"], $_POST["date-
                 <input type="submit">
             </form>
         </div>
+
     </div>
 	<div id="eventInfoModal" class="event-info-modal">
 		<div class="event-info-modal-content">
@@ -95,29 +105,38 @@ if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST["title"], $_POST["date-
 	</div>
 	    <!-- <nav class="navtop"> -->
 	    <!-- <div> -->
-		<h1 id="mainHead">
-  			<div class="topnav">
-   				<a href="#Active View2">Active View</a>
-				<a id="pTopNav">Welcome, Victor E. Bull</a>
-    		</div></h1>
+
 		<!-- </div> -->
 	    <!-- </nav> -->
 		<div class="sidenav">
-			<a id="sideAnchor">  <button id="sideButton" type="button">Add Event</button></a>
-  			<h1 id="sideHeader">Sunday's Events</h1>
-  			<ol>
-    		<li>1:00 AM Testing</li>
-			<br>
-    		<li>2:00 AM Testing</li>
-			<br>
-    		<li>3:00 AM Testing</li>
-			<br>
-    		<li>4:00 AM Testing</li>
-  		</ol></div>
+			<a id="sideAnchor">  
+				<button id="sideButton" type="button">Add Event</button>
+			</a>
+			<h1 id="sideHeader">
+				<?php 
+					date_default_timezone_set('America/New_York');
+					echo 'Todays Events';
+					$current_date = date('Y-m-d'); 
+					$todaysEvents = loadTodaysEvents($_SESSION['username'], $current_date);
+					
+				?>
+			</h1>
+			<ol>
+				<?php 
+				echo "<div>";
+					foreach ($todaysEvents as $event) {
+						echo "<li>" . $event["title"] . "</li><br><br><br>"; // output each event date and title
+					}
+					echo "</div>";
+				?>
+			</ol>
+		</div>
 		  <div class="main">
 		  <div class="content home">
 			<?=$calendar?>
 		</div>
               <script src="ProjectPHP/modal.js"></script>
+			  <script src="ProjectPHP/calendar.js"></script>
+
 	</body>
 </html>
