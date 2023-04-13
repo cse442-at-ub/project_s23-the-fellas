@@ -50,7 +50,8 @@ class Calendar {
             foreach ($this->events as $event) {
                 for ($d = 0; $d <= ($event[2]-1); $d++) {
                     if (date('y-m-d', strtotime($this->active_year . '-' . $this->active_month . '-' . $i . ' -' . $d . ' day')) == date('y-m-d', strtotime($event[1]))) {
-                        $html .= '<div class="event' . $event[3] . '">';
+                        $html .= '<div>';
+                        $html .= '<li class="event' . $event[3] .  '" data-date="' . $event[1] . '" data-date-time="' . $event[4] . '" data-color="' . $event[3] .'">';
                         $html .= $event[0];
                         $html .= '</div>';
                     }

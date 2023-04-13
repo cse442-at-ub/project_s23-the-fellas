@@ -15,6 +15,31 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
     header('Location: login.php');
     exit; // Exit the script
 }
+
+$calendar = new Calendar();
+
+
+$eventsArray = arrayOfEvents($_SESSION['username']);
+
+foreach ($eventsArray as $event) {
+	$calendar->add_event($event["title"], $event["dateTime"], 1, $event["color"], $event["eventID"]);
+	// echo '<script>alert("' . $event["userID"] . $event["title"] . $event["dateTime"] .  '");</script>';
+}
+
+//THIS PART RUNS EVERYTIME REFRESHED IDK WHY HELP
+if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST["title"], $_POST["date-time"])) {
+	addEvent($_SESSION['username'], $_POST["title"], substr($_POST["date-time"], 0, 10), "red");
+    unset($_POST["title"]);
+    unset($_POST["date-time"]);
+
+	header("Location: " . $_SERVER['PHP_SELF']); // Redirect to the same page
+    exit;
+}
+
+// Check if the 'loggedin' variable is not set or has a value of false
+
+
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -42,6 +67,32 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
             </form>
         </div>
     </div>
+	<div id="eventInfoModal" class="event-info-modal">
+		<div class="event-info-modal-content">
+			<span class="event-info-close">&times;</span>
+			<form id="eventInfoForm">
+				<input type="hidden" id="eventInfoID">
+				<label for="eventInfoTitle">Title:</label>
+				<input type="text" id="eventInfoTitle" name="title">
+				<br>
+				<label for="eventInfoDate">Date:</label>
+				<input type="date" id="eventInfoDate" name="date">
+				<br>
+				<label for="eventInfoColor">Color:</label>
+				<select id="eventInfoColor" name="color">
+					<option value="red">Red</option>
+					<option value="blue">Blue</option>
+					<option value="orange">Orange</option>
+					<option value="green">Green</option>
+					<option value="purple">Purple</option>
+					<option value="black">Black</option>
+
+				</select>
+				<br>
+				<button type="submit">Save Changes</button>
+			</form>
+		</div>
+	</div>
 	    <!-- <nav class="navtop"> -->
 	    <!-- <div> -->
 		<h1 id="mainHead">

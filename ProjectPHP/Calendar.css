@@ -64,18 +64,64 @@
     font-size: 14px;
     padding: 3px 6px;
     border-radius: 4px;
-    background-color: #f7c30d;
-    color: #fff;
+    background-color: #2a2513;
+    color: #ffffff;
+    word-wrap: initial;
+    z-index: 1;
+    margin-bottom: 5px;
+}
+
+.calendar .days .day_num .event-list .event {
+    display: block;
+    width: 96%;
+    padding: 3.5px;
+    font-family: "Lato", sans-serif;
     word-wrap: break-word;
 }
+
+
+.calendar .days .day_num .event-list {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    z-index: 1; /* lower than modal */
+    margin-top: 2%;
+    padding: 5px;
+    background-color: white;
+    border-radius: 4px;
+    overflow-y: scroll; 
+    
+
+  }
+
+
+
 .calendar .days .day_num .event.green {
-    background-color: #51ce57;
+    background-color: #6ac56e;
 }
 .calendar .days .day_num .event.blue {
-    background-color: #518fce;
+    background-color: #669bd0;
 }
 .calendar .days .day_num .event.red {
     background-color: #ce5151;
+}
+.calendar .days .day_num .event.orange {
+    background-color: #e6ba3f;
+}
+.calendar .days .day_num .event.purple {
+    background-color: #f551f2;
+}
+.calendar .days .day_num .event.black {
+    background-color: #4f4e4e;
+}
+.calendar .days .day_num .event.orange {
+    background-color: #e6ba3f;
+}
+.calendar .days .day_num .event.purple {
+    background-color: #f551f2;
+}
+.calendar .days .day_num .event.black {
+    background-color: #4f4e4e;
 }
 .calendar .days .day_num:nth-child(7n+1) {
     border-left: 1px solid #e6e9ea;
@@ -94,4 +140,13 @@
     background-color: #f1f2f3;
     background-color: gainsboro;
     cursor: inherit;
+}
+
+.calendar .days .day_num.selected .event-list{
+    background-color: #f1f2f3;
+    background-color: gainsboro;
+    cursor: inherit;
+}
+.calendar .days .day_num .event-list::-webkit-scrollbar {
+    display:none
 }
