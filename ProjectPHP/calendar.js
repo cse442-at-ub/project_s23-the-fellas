@@ -14,7 +14,8 @@ document.addEventListener('DOMContentLoaded', function () {
             eventInfoTitle.value = this.innerText;
             eventInfoDate.value = this.getAttribute('data-date');
             eventInfoID.value = this.getAttribute('data-date-time');
-            eventInfoColor.value = this.getAttribute('data-color');
+            eventInfoColor.value = this.getAttribute('data-color').trim();
+            console.log('x', this.getAttribute('data-color').trim(), 'x');
             eventModal.style.display = 'block';
         });
     }
