@@ -110,6 +110,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST["title"], $_POST["date-
 				</select>
 				<br>
 				<button type="submit">Save Changes</button>
+				<button type="delete">Delete Event</button>
 			</form>
 		</div>
 	</div>
