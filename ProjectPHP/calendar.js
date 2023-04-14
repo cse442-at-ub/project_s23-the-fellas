@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const dateTime = eventInfoDate.value.toString();
         const color = eventInfoColor.value.toString();
         const eventID = eventInfoID.value.toString();
-  
+        console.log(title, dateTime, color, eventID);
         fetch('server.php', {
             method: 'POST',
             headers: {
@@ -49,7 +49,6 @@ document.addEventListener('DOMContentLoaded', function () {
         })
         .then(response => response.text())
         .then(data => {
-            console.log(data);
             // Update the corresponding list item
             const listItem = document.getElementById(`event-item-${eventID}`);
             if (listItem) {
