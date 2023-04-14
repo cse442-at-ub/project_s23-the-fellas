@@ -22,7 +22,7 @@ foreach ($eventsArray as $event) {
 
 //THIS PART RUNS EVERYTIME REFRESHED IDK WHY HELP
 if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST["title"], $_POST["date-time"])) {
-	addEvent($_SESSION['username'], $_POST["title"], substr($_POST["date-time"], 0, 10), "red");
+	addEvent($_SESSION['username'], $_POST["title"], substr($_POST["date-time"], 0, 10), $_POST["color"]);
     unset($_POST["title"]);
     unset($_POST["date-time"]);
 
@@ -73,7 +73,18 @@ if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST["title"], $_POST["date-
                 <input type="text" id="event-title-input" class="modal-input" name="title"><br>
                 <label for="event-datetime-input">Event Date and Time:</label>
                 <input type="datetime-local" id="event-datetime-input" class="modal-input" name="date-time"><br>
+				<label for="eventInfoColor">Color:</label>
+				<select id="eventInfoColor" name="color">
+					<option value="red">Red</option>
+					<option value="blue">Blue</option>
+					<option value="orange">Orange</option>
+					<option value="green">Green</option>
+					<option value="purple">Purple</option>
+					<option value="black">Black</option>
+
+				</select>
                 <input type="submit">
+				
             </form>
         </div>
 

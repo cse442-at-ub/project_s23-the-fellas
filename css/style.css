@@ -112,3 +112,22 @@ li a:hover {
   padding-left: 2%;
 
 }
+
+
+#sideButton {
+  background-color: #669bd0 !important;
+  color: #3b3a3a; 
+  border: none; 
+  border-radius: 20px; 
+  padding: 10px 20px; 
+  font-size: 16px;
+  cursor: pointer; 
+  box-shadow: #333 !important;
+  outline: auto;
+  outline-style: groove;
+  font-weight: bold;
+}
+
+#sideButton:hover {
+  background-color: #5481ad !important; /* Change background color on hover */
+}
