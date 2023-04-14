@@ -8,7 +8,7 @@ error_reporting(E_ALL);
 function check_credentials($username, $password) {
 
     // Connect to the database
-    $db = mysqli_connect("oceanus.cse.buffalo.edu:3306", "jtsang3", "50301665", "cse442_2023_spring_team_c_db");
+    $db = mysqli_connect("oceanus.cse.buffalo.edu:3306", "devincle", "50343841", "cse442_2023_spring_team_c_db");
     
     // Check if the connection was successful
     if (!$db) {
