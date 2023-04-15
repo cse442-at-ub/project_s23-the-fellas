@@ -22,6 +22,33 @@
 .sidenav a:hover{
   color: #f1f1f1;
 }
+
+#topButton {
+    display: none;
+}
+
+@media only screen and (max-width: 800px) {
+    .sidenav {
+        display:none;
+        /*left: 500px;*/
+        height: 0%
+    }
+    #topButton{
+        display: inline-block;
+    }
+    .main{
+        margin-left: 0% !important;
+        width: 100% !important;
+    }
+    .calendar{
+        width: 113% !important;
+    }
+    form{
+        padding: 0px;
+        width: 80%;
+    }
+}
+
 #sideHeader{
   margin-top: 5%;
   color: black;
@@ -200,51 +227,6 @@ body{
     /* vertical-align: middle; */
     overflow: hidden;
   }
-  #tSun{
-    float: left;
-    margin-left: 0px;
-    width: 12%;
-    background-color: palevioletred;
-    /* max-height: 20px;
-    overflow: scroll; */
-  }
-  #tMon{
-    float: left;
-    margin-left: 0px;
-    width: 12%;
-    background-color: teal;
-
-  }
-  #tTue{
-    float: left;
-    margin-left: 0px;
-    width: 12%;
-    background-color: cyan;
-  }
-  #tWed{
-    float: left;
-    margin-left: 0px;
-    width: 12%;
-    background-color: skyblue;
-  }
-  #tThu{
-    float: left;
-    margin-left: 0px;
-    width: 12%;
-    background-color: darkgray;
-  }
-  #tFri{
-    float: left;
-    margin-left: 0px;
-    width: 12%;
-    background-color: purple;
-  }
-  #tSat{
-    float: left;
-    margin-left: 0px;
-    width: 12%;
-    background-color: white;
-  }
 
 /* The Modal (background) */
 .modal {
@@ -293,7 +275,7 @@ body{
 
 }
 
-
+/* Modal For Edit Event */
 
 .event-info-modal {
   display: none;
@@ -337,7 +319,22 @@ button[type="submit"] {
 }
 
 button[type="submit"]:hover {
-  background-color: #45a049;
+  background-color: red;
+}
+button[id="delete"] {
+  width: 100%;
+  padding: 10px;
+  background-color: red;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+button[id="delete"]:hover {
+  background-color: red;
 }
 
 label {
@@ -351,10 +348,9 @@ label {
   position: relative;
   background-color: #ffffff;
   margin: 15% auto;
-  padding: 20px;
   border: 1px solid #888;
-  width: 50%;
-  height: 50%;
+  width: 100%;
+  height: 100%;
   border-radius: 30px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
@@ -372,3 +368,8 @@ label {
   text-decoration: none;
   cursor: pointer;
 }
+/* 
+form[type="eventInfoForm"] {
+  margin-bottom: 2%;
+  background-color: #000 !important;
+} */

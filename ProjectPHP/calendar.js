@@ -7,26 +7,34 @@ document.addEventListener('DOMContentLoaded', function () {
     const closeEventInfoModal = document.querySelector('.event-info-close');
     const eventInfoForm = document.getElementById('eventInfoForm');
     const eventInfoID = document.getElementById('eventInfoID');
-    eventListItems.forEach(item => {
+  
+    //When you click on an event, the modal opens and the event info is displayed
+    function updateEventListener(item) {
         item.addEventListener('click', function () {
             eventInfoTitle.value = this.innerText;
             eventInfoDate.value = this.getAttribute('data-date');
             eventInfoID.value = this.getAttribute('data-date-time');
-            eventInfoColor.value = 'red'; 
+            eventInfoColor.value = this.getAttribute('data-color').trim();
+            console.log('x', this.getAttribute('data-color').trim(), 'x');
             eventModal.style.display = 'block';
         });
-    });
+    }
 
+    eventListItems.forEach(item => {
+        updateEventListener(item);
+    });
+  
+    //Sends the updatEvent action to the server (server.php) and updates the event in the database
     eventInfoForm.addEventListener('submit', function (event) {
         event.preventDefault();
-
+  
         // Get the data from the form
         const title = (eventInfoTitle.value).toString();
         const dateTime = eventInfoDate.value.toString();
         const color = eventInfoColor.value.toString();
-        const eventID = eventInfoID.value.toString();    
-
-    
+        const eventID = eventInfoID.value.toString();
+        console.log(title, dateTime, color, eventID);
+        console.log("submitted");
         fetch('server.php', {
             method: 'POST',
             headers: {
@@ -39,24 +47,82 @@ document.addEventListener('DOMContentLoaded', function () {
               color: color,
               eventID: eventID,
             })
-          })
-          .then(response => response.json())
-          .then(data => {
-            console.log(data);
-          })
-          .catch(error => {
-            console.log(error)
-            console.log(title, dateTime, color, eventID)
-          });
+        })
+        .then(response => response.text())
+        .then(data => {
+            // Update the corresponding list item
+            const listItem = document.getElementById(`event-item-${eventID}`);
+            if (listItem) {
+                listItem.innerText = title;
+                listItem.setAttribute('data-date', dateTime);
+                // Update other attributes if needed
+                updateEventListener(listItem); // Update the event listener for the updated list item
+            }
+            // Close the modal after updating the event
+            eventModal.style.display = 'none';
+            location.reload();
+        })
+        .catch(error => {
+            console.log(error);
+            console.log(title, dateTime, color, eventID);
+        });
     });
+   //Delete Event
+   //Sends the updatEvent action to the server (server.php) and updates the event in the database
+   const deleteButton = document.getElementById("delete")
+   if (deleteButton) {
+    deleteButton.addEventListener('click', function(event) {
+    event.preventDefault();
 
+    // Get the data from the form
+    const title = (eventInfoTitle.value).toString();
+    const dateTime = eventInfoDate.value.toString();
+    const color = eventInfoColor.value.toString();
+    const eventID = eventInfoID.value.toString();
+    console.log(title, dateTime, color, eventID);
+    console.log("delete")
+    fetch('server.php', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          action: 'deleteEvent',
+          title: title,
+          dateTime: dateTime,
+          color: color,
+          eventID: eventID,
+        })
+    })
+    .then(response => response.text())
+    .then(data => {
+        // Update the corresponding list item
+        const listItem = document.getElementById(`event-item-${eventID}`);
+        if (listItem) {
+            listItem.innerText = none;
+            listItem.setAttribute('data-date', dateTime);
+            // Update other attributes if needed
+            updateEventListener(listItem); // Update the event listener for the updated list item
+        }
+        // Close the modal after updating the event
+        eventModal.style.display = 'none';
+        location.reload();
+    })
+    .catch(error => {
+        console.log(error);
+        console.log(title, dateTime, color, eventID);
+    });
+});
+   }
+    //When you click outside the modal or on the close button, the modal closes
     closeEventInfoModal.addEventListener('click', function () {
         eventModal.style.display = 'none';
     });
-
+  
+    //When u click ON the modal it will stay open and not close
     window.addEventListener('click', function (event) {
         if (event.target === eventModal) {
             eventModal.style.display = 'none';
         }
     });
-});
+  });

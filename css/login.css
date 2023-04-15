@@ -50,4 +50,19 @@ input[type="submit"]:hover {
     background-color: #555;
 }
 
+@media only screen and (max-width: 980px) {
+    .header h1{
+        font-size: 72px
+    }
+    form{
+        font-size: xxx-large !important;
+        padding: 80px;
+    }
+    input[type="text"],
+    input[type="password"],
+    input[type="submit"]  {
+        padding: 50px;
+        font-size: 90%
+    }
+}
 
