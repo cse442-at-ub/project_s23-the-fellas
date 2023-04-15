@@ -1,6 +1,5 @@
 <?php
 
-
 //The login functionality, checks if username and password exists in the database
 //Passwords are hashed and salted
 function check_credentials($username, $password) {
@@ -12,21 +11,29 @@ function check_credentials($username, $password) {
     if (!$db) {
       die("Connection failed: " . mysqli_connect_error());
     }
-    
+
+    echo "Connection to database successful\n";
+/*
     // Sanitize the input to prevent SQL injection attacks
     $username = mysqli_real_escape_string($db, $username);
     $password = mysqli_real_escape_string($db, $password);
     
-    // Query the database to get data for user with username='$username'
-    //$query = "SELECT * FROM user_accounts WHERE username='$username'";
+    // Unprepared Query
     $query = "SELECT * FROM user_accounts WHERE username='$username'";
     $result = mysqli_query($db, $query);
-    
+
+    */
+    // Use a prepared statement to get the data corresponding to the given username.
+    $stmt = $db->prepare("SELECT * FROM user_accounts WHERE username = ?");
+    $stmt->bind_param("s", $username);
+    $stmt->execute();
+
+    $result = $stmt->get_result();
+
     // Check if there was an error with the query
     if (!$result) {
       die("Query failed: " . mysqli_error($db));
     }
-
 
     $row = $result->fetch_assoc(); // parse the query result into an associative array.
 
@@ -46,19 +53,34 @@ function check_credentials($username, $password) {
 }
 
 //Returns the entire array of events for a given user
-function arrayOfEvents($username) {
-  $db = mysqli_connect("oceanus.cse.buffalo.edu:3306", "jtsang3", "50301665", "cse442_2023_spring_team_c_db");
-  if (!$db) {
-    die("Connection failed: " . mysqli_connect_error());
-  }
-  $sql = "SELECT * FROM events WHERE userID = '$username'";
-  $result = mysqli_query($db, $sql);
-  $events = array();
-  while ($row = mysqli_fetch_assoc($result)) {
-    $events[] = $row;
-  }
-  mysqli_close($db);
-  return $events;
+function arrayOfEvents($username)
+{
+    $db = mysqli_connect("oceanus.cse.buffalo.edu:3306", "jtsang3", "50301665", "cse442_2023_spring_team_c_db");
+    if (!$db) {
+        die("Connection failed: " . mysqli_connect_error());
+    }
+
+    $sql = "SELECT * FROM events WHERE userID = '$username'";
+    $result = mysqli_query($db, $sql);
+    $events = array();
+    while ($row = mysqli_fetch_assoc($result)) {
+      $events[] = $row;
+    }
+
+
+    // Use a prepared statement to get the data corresponding to the given username.
+    $stmt = $db->prepare("SELECT * FROM events WHERE userID = ?");
+    $stmt->bind_param("s", $username);
+    $stmt->execute();
+
+    $result = $stmt->get_result();
+
+    $events = array();
+    while ($row = mysqli_fetch_assoc($result)) {
+        $events[] = $row;
+    }
+        mysqli_close($db);
+        return $events;
 
 }
 
@@ -160,6 +182,5 @@ function updateEvent($title, $dateTime, $color, $eventID) {
   // Close the database connection
   mysqli_close($db);
 }
-
 
 ?>
