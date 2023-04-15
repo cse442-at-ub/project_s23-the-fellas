@@ -137,11 +137,38 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
       echo "Calling updateEvent with the following data: ";
       echo "Title: $title, DateTime: $dateTime, Color: $color, EventID: $eventID";
-  
-      // Call the updateEvent function with the data
-      // addEvent("devincle", $title, $dateTime, $color);
       updateEvent($title, $dateTime, $color, $eventID);
   }
+  if ($action =='deleteEvent') {
+      $title = $json_data['title'];
+      $dateTime = $json_data['dateTime'];
+      $color = $json_data['color'];
+      $eventID = $json_data['eventID'];
+      echo "$eventID ";
+      deleteEvent($title, $dateTime, $color, $eventID);
+    }
+}
+function deleteEvent($title, $dateTime, $color, $eventID) {
+  $db = mysqli_connect("oceanus.cse.buffalo.edu:3306", "jtsang3", "50301665", "cse442_2023_spring_team_c_db");
+  if (!$db) {
+    die("Connection failed: " . mysqli_connect_error());
+}
+
+  $title = mysqli_real_escape_string($db, $title);
+  $dateTime = mysqli_real_escape_string($db, $dateTime);
+  $color = mysqli_real_escape_string($db, $color);
+  $eventID = mysqli_real_escape_string($db, $eventID);
+
+  $sql = "DELETE from events WHERE eventID = '$eventID'";
+  $result = mysqli_query($db, $sql);
+
+  if ($result) {
+    echo "Event with ID $eventID has been removed successfully.";
+} else {
+    echo "Error removing event with ID $eventID: " . mysqli_error($db);
+}
+
+mysqli_close($db);
 }
 function updateEvent($title, $dateTime, $color, $eventID) {
   $db = mysqli_connect("oceanus.cse.buffalo.edu:3306", "jtsang3", "50301665", "cse442_2023_spring_team_c_db");

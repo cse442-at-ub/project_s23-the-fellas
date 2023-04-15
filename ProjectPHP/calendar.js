@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function () {
             eventModal.style.display = 'block';
         });
     }
-    
+
     eventListItems.forEach(item => {
         updateEventListener(item);
     });
@@ -34,6 +34,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const color = eventInfoColor.value.toString();
         const eventID = eventInfoID.value.toString();
         console.log(title, dateTime, color, eventID);
+        console.log("submitted");
         fetch('server.php', {
             method: 'POST',
             headers: {
@@ -66,7 +67,53 @@ document.addEventListener('DOMContentLoaded', function () {
             console.log(title, dateTime, color, eventID);
         });
     });
-  
+   //Delete Event
+   //Sends the updatEvent action to the server (server.php) and updates the event in the database
+   const deleteButton = document.getElementById("delete")
+   if (deleteButton) {
+    deleteButton.addEventListener('click', function(event) {
+    event.preventDefault();
+
+    // Get the data from the form
+    const title = (eventInfoTitle.value).toString();
+    const dateTime = eventInfoDate.value.toString();
+    const color = eventInfoColor.value.toString();
+    const eventID = eventInfoID.value.toString();
+    console.log(title, dateTime, color, eventID);
+    console.log("delete")
+    fetch('server.php', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          action: 'deleteEvent',
+          title: title,
+          dateTime: dateTime,
+          color: color,
+          eventID: eventID,
+        })
+    })
+    .then(response => response.text())
+    .then(data => {
+        // Update the corresponding list item
+        const listItem = document.getElementById(`event-item-${eventID}`);
+        if (listItem) {
+            listItem.innerText = none;
+            listItem.setAttribute('data-date', dateTime);
+            // Update other attributes if needed
+            updateEventListener(listItem); // Update the event listener for the updated list item
+        }
+        // Close the modal after updating the event
+        eventModal.style.display = 'none';
+        location.reload();
+    })
+    .catch(error => {
+        console.log(error);
+        console.log(title, dateTime, color, eventID);
+    });
+});
+   }
     //When you click outside the modal or on the close button, the modal closes
     closeEventInfoModal.addEventListener('click', function () {
         eventModal.style.display = 'none';

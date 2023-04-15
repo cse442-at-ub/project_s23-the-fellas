@@ -200,51 +200,6 @@ body{
     /* vertical-align: middle; */
     overflow: hidden;
   }
-  #tSun{
-    float: left;
-    margin-left: 0px;
-    width: 12%;
-    background-color: palevioletred;
-    /* max-height: 20px;
-    overflow: scroll; */
-  }
-  #tMon{
-    float: left;
-    margin-left: 0px;
-    width: 12%;
-    background-color: teal;
-
-  }
-  #tTue{
-    float: left;
-    margin-left: 0px;
-    width: 12%;
-    background-color: cyan;
-  }
-  #tWed{
-    float: left;
-    margin-left: 0px;
-    width: 12%;
-    background-color: skyblue;
-  }
-  #tThu{
-    float: left;
-    margin-left: 0px;
-    width: 12%;
-    background-color: darkgray;
-  }
-  #tFri{
-    float: left;
-    margin-left: 0px;
-    width: 12%;
-    background-color: purple;
-  }
-  #tSat{
-    float: left;
-    margin-left: 0px;
-    width: 12%;
-    background-color: white;
-  }
 
 /* The Modal (background) */
 .modal {
@@ -293,7 +248,7 @@ body{
 
 }
 
-
+/* Modal For Edit Event */
 
 .event-info-modal {
   display: none;
@@ -337,7 +292,22 @@ button[type="submit"] {
 }
 
 button[type="submit"]:hover {
-  background-color: #45a049;
+  background-color: red;
+}
+button[id="delete"] {
+  width: 100%;
+  padding: 10px;
+  background-color: red;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+button[id="delete"]:hover {
+  background-color: red;
 }
 
 label {
