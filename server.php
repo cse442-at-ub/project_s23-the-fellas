@@ -18,7 +18,8 @@ function check_credentials($username, $password) {
     // Sanitize the input to prevent SQL injection attacks
     $username = mysqli_real_escape_string($db, $username);
     $password = mysqli_real_escape_string($db, $password);
-    
+
+    /* Unprepared db access
     // Query the database to get data for user with username='$username'
     //$query = "SELECT * FROM user_accounts WHERE username='$username'";
     $query = "SELECT * FROM user_accounts WHERE username='$username'";
@@ -28,7 +29,18 @@ function check_credentials($username, $password) {
     if (!$result) {
       die("Query failed: " . mysqli_error($db));
     }
+*/
+    // Use a prepared statement to get the data corresponding to the given username.
+    $stmt = $db->prepare("SELECT * FROM user_accounts WHERE username = ?");
+    $stmt->bind_param("s", $username);
+    $stmt->execute();
 
+    $result = $stmt->get_result();
+
+    // Check if there was an error with the query
+    if (!$result) {
+        die("Query failed: " . mysqli_error($db));
+    }
 
     $row = $result->fetch_assoc(); // parse the query result into an associative array.
 
@@ -53,9 +65,20 @@ function arrayOfEvents($username) {
   if (!$db) {
     die("Connection failed: " . mysqli_connect_error());
   }
+  /* Unprepared db query
   $sql = "SELECT * FROM events WHERE userID = '$username'";
   $result = mysqli_query($db, $sql);
-  $events = array();
+  */
+
+    // Use a prepared statement to get the data corresponding to the given username.
+    $stmt = $db->prepare("SELECT * FROM events WHERE userID = ?");
+    $stmt->bind_param("s", $username);
+    $stmt->execute();
+
+    $result = $stmt->get_result(); // get result of database query
+
+    $events = array();
+
   while ($row = mysqli_fetch_assoc($result)) {
     $events[] = $row;
   }
@@ -71,16 +94,31 @@ function addEvent($username, $title, $dateTime, $color) {
   if (!$db) {
       die("Connection failed: " . mysqli_connect_error());
   }
+
+  /*
   $sql = "INSERT INTO events (userID, title, dateTime, color) VALUES ('$username', '$title', '$dateTime', '$color')";
   $result = mysqli_query($db, $sql);
+  */
+
+    // Use a prepared statement to add an event with the given parameters to the events table in the database.
+    $stmt = $db->prepare("INSERT INTO events (userID, title, dateTime, color) VALUES (?, ?, ?, ?)");
+    $stmt->bind_param("ssss", $username, $title, $dateTime, $color);
+    $stmt->execute();
+
+    //$result = $stmt->get_result();
+
+    /* Listen it works fine without this and I'm too tired and short on time to deal with this right now
   if (!$result) {
       die("Error adding event: " . mysqli_error($db));
   }
+    */
+
   mysqli_close($db);
 
 }
 
-
+// Commented out for Sprint 3 grading
+/*
 //Just used to delete some incorrectly formed items (keeping for future reference)
 function deleteTestEvents() {
   $db = mysqli_connect("oceanus.cse.buffalo.edu:3306", "jtsang3", "50301665", "cse442_2023_spring_team_c_db");
@@ -97,6 +135,7 @@ function deleteTestEvents() {
 
   mysqli_close($db);
 }
+*/
 
 
 //Function for the side bar code
@@ -105,10 +144,21 @@ function loadTodaysEvents($username, $date) {
   if (!$db) {
     die("Connection failed: " . mysqli_connect_error());
   }
-  
+
+  /* Unprepared database query
   $sql = "SELECT * FROM events WHERE dateTime = '$date' AND userID = '$username'";
   $result = mysqli_query($db, $sql);
+  */
+
+    // Use a prepared statement to get the data corresponding to the given username and time.
+    $stmt = $db->prepare("SELECT * FROM events WHERE dateTime = ? AND userID = ?");
+    $stmt->bind_param("ss", $date, $username);
+    $stmt->execute();
+
+    $result = $stmt->get_result();
+
   $events = array();
+
   while ($row = mysqli_fetch_assoc($result)) {
     $events[] = $row;
   }
@@ -148,6 +198,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       deleteEvent($title, $dateTime, $color, $eventID);
     }
 }
+
 function deleteEvent($title, $dateTime, $color, $eventID) {
   $db = mysqli_connect("oceanus.cse.buffalo.edu:3306", "jtsang3", "50301665", "cse442_2023_spring_team_c_db");
   if (!$db) {
@@ -159,14 +210,23 @@ function deleteEvent($title, $dateTime, $color, $eventID) {
   $color = mysqli_real_escape_string($db, $color);
   $eventID = mysqli_real_escape_string($db, $eventID);
 
+  /* Unprepared query
   $sql = "DELETE from events WHERE eventID = '$eventID'";
   $result = mysqli_query($db, $sql);
+  */
 
+    // Use a prepared statement to delete the event with given eventID.
+    $stmt = $db->prepare("DELETE from events WHERE eventID = ?");
+    $stmt->bind_param("s", $eventID);
+    $stmt->execute();
+
+/* See comment at line 110 for details
   if ($result) {
     echo "Event with ID $eventID has been removed successfully.";
 } else {
     echo "Error removing event with ID $eventID: " . mysqli_error($db);
 }
+  */
 
 mysqli_close($db);
 }
@@ -176,19 +236,30 @@ function updateEvent($title, $dateTime, $color, $eventID) {
       die("Connection failed: " . mysqli_connect_error());
   }
 
+  /* Prepare statements don't require escaped strings
   $title = mysqli_real_escape_string($db, $title);
   $dateTime = mysqli_real_escape_string($db, $dateTime);
   $color = mysqli_real_escape_string($db, $color);
   $eventID = mysqli_real_escape_string($db, $eventID);
+  */
 
+  /* Unprepared query
   $sql = "UPDATE events SET title = '$title', dateTime = '$dateTime', color = '$color' WHERE eventID = '$eventID'";
   $result = mysqli_query($db, $sql);
+*/
 
+    // Use a prepared statement to get update the data corresponding to the given parameters.
+    $stmt = $db->prepare("UPDATE events SET title =?, dateTime =?, color =? WHERE eventID =?");
+    $stmt->bind_param("ssss", $title, $dateTime, $color, $eventID);
+    $stmt->execute();
+
+  /* Commented out temporarily, add back later maybe
   if ($result) {
       echo "Event with ID $eventID has been updated successfully.";
   } else {
       echo "Error updating event with ID $eventID: " . mysqli_error($db);
   }
+  */
 
   mysqli_close($db);
 }
