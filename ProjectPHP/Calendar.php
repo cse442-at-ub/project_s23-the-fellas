@@ -46,7 +46,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST["title"], $_POST["date-
 		function validateForm() {
 		  var x = document.forms["InputForm"]["title"].value;
 		  var y = document.forms["InputForm"]["date-time"].value;
-		  document.forms["InputForm"]["title"].value = x.replace("'","\\\'")
 		  if (x == "" || x == null) {
 			alert("Event Title must be filled out");
 			return false;
