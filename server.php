@@ -19,17 +19,6 @@ function check_credentials($username, $password) {
     $username = mysqli_real_escape_string($db, $username);
     $password = mysqli_real_escape_string($db, $password);
 
-    /* Unprepared db access
-    // Query the database to get data for user with username='$username'
-    //$query = "SELECT * FROM user_accounts WHERE username='$username'";
-    $query = "SELECT * FROM user_accounts WHERE username='$username'";
-    $result = mysqli_query($db, $query);
-    
-    // Check if there was an error with the query
-    if (!$result) {
-      die("Query failed: " . mysqli_error($db));
-    }
-*/
     // Use a prepared statement to get the data corresponding to the given username.
     $stmt = $db->prepare("SELECT * FROM user_accounts WHERE username = ?");
     $stmt->bind_param("s", $username);
@@ -140,6 +129,7 @@ function deleteTestEvents() {
 
 //Function for the side bar code
 function loadTodaysEvents($username, $date) {
+  echo "<script>console.log('LoadTodaysEvents Called: " . $username . $date . "');</script>";
   $db = mysqli_connect("oceanus.cse.buffalo.edu:3306", "jtsang3", "50301665", "cse442_2023_spring_team_c_db");
   if (!$db) {
     die("Connection failed: " . mysqli_connect_error());
@@ -163,6 +153,7 @@ function loadTodaysEvents($username, $date) {
     $events[] = $row;
   }
   mysqli_close($db);
+
   return $events;
 }
 
@@ -174,7 +165,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
   // Decode the JSON data
   $json_data = json_decode($raw_data, true);
-  echo "<script>console.log('PHP: " . $raw_data . "');</script>";
+  echo "<script>alert('Devin: " . $raw_data . "');</script>";
 
   // Get the action from the decoded JSON data
   $action = $json_data['action'];
@@ -185,8 +176,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       $color = $json_data['color'];
       $eventID = $json_data['eventID'];
 
-      echo "Calling updateEvent with the following data: ";
-      echo "Title: $title, DateTime: $dateTime, Color: $color, EventID: $eventID";
       updateEvent($title, $dateTime, $color, $eventID);
   }
   if ($action =='deleteEvent') {
@@ -194,12 +183,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       $dateTime = $json_data['dateTime'];
       $color = $json_data['color'];
       $eventID = $json_data['eventID'];
-      echo "$eventID ";
       deleteEvent($title, $dateTime, $color, $eventID);
     }
+  if ($action =='loadTodaysEvents'){
+      // echo "<script>console.log('made it here');</script>";
+      $username = $json_data['username'];
+      $date = $json_data['date'];
+      loadTodaysEvents($username, $date);
+  }
 }
 
 function deleteEvent($title, $dateTime, $color, $eventID) {
+  echo "<script>console.log('DeleteEventCalled:');</script>";
+
   $db = mysqli_connect("oceanus.cse.buffalo.edu:3306", "jtsang3", "50301665", "cse442_2023_spring_team_c_db");
   if (!$db) {
     die("Connection failed: " . mysqli_connect_error());
