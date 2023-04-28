@@ -81,6 +81,16 @@ function arrayOfEvents($username) {
   while ($row = mysqli_fetch_assoc($result)) {
     $events[] = $row;
   }
+  // Pulls Admin Events Into User Schedule
+  $stmt = $db->prepare("SELECT * FROM events WHERE userID = 'admin'");
+  $stmt->execute();
+
+  $result = $stmt->get_result(); // get result of database query
+
+  $events + array();
+  while ($row = mysqli_fetch_assoc($result)) {
+    $events[] = $row;
+  }
 }
   // Use a prepared statement to get the data corresponding to all usernames (ADMIN ROLE).
   elseif($username == "admin"){
@@ -172,6 +182,18 @@ function loadTodaysEvents($username, $date) {
 
   while ($row = mysqli_fetch_assoc($result)) {
     $events[] = $row;
+  }
+  //Adds Admin Daily Events to sidebar
+  $stmt = $db->prepare("SELECT * FROM events WHERE dateTime = ? AND userID = 'admin'");
+  $stmt->bind_param("s", $date);
+  $stmt->execute();
+
+  $result = $stmt->get_result();
+
+$events + array();
+
+while ($row = mysqli_fetch_assoc($result)) {
+  $events[] = $row;
   }
 }
 
