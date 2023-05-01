@@ -44,7 +44,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['username']) && isset($
 		<input type="text" name="username" id="username" required><br><br>
 		<label for="password">Password:</label>
 		<input type="password" name="password" id="password" required><br><br>
-		<input type="submit" value="Login">
+        <!--<a href="url">Forgot your password?</a>-->
+		<input type="submit" value="Log In">
+        
+        <a href="register.html"> <input type="button" value="Register"></a>
 	</form>
 </body>
 </html>
