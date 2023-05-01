@@ -46,6 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['username']) && isset($
 		<input type="password" name="password" id="password" required><br><br>
 		<input type="submit" value="Login">
 	</form>
+	<body style="background-image: url('https://www.androidauthority.com/wp-content/uploads/2014/10/Google-Calendar-twelve-seasonal-backgrounds.png.webp');">
 </body>
 </html>
 

@@ -27,6 +27,10 @@ body {
 
 form {
     background-color: #fff;
+    background-color: #303030;
+    background-color: rgb(125, 233, 197);
+    background-color: #446879;
+    opacity: 93%;
     border-radius: 5px;
     padding: 20px;
     margin: 0 auto;
