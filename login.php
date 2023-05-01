@@ -49,6 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['username']) && isset($
         
         <a href="register.html"> <input type="button" value="Register"></a>
 	</form>
+	<body style="background-image: url('https://www.androidauthority.com/wp-content/uploads/2014/10/Google-Calendar-twelve-seasonal-backgrounds.png.webp');">
 </body>
 </html>
 
