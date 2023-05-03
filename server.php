@@ -54,12 +54,11 @@ function arrayOfEvents($username) {
   if (!$db) {
     die("Connection failed: " . mysqli_connect_error());
   }
-  /* Unprepared db query
-  $sql = "SELECT * FROM events WHERE userID = '$username'";
-  $result = mysqli_query($db, $sql);
-  */
-
-    // Use a prepared statement to get the data corresponding to the given username.
+    $result = "";
+    $events = "";
+    
+  // Use a prepared statement to get the data corresponding to the given username.
+  if($username != "admin"){
     $stmt = $db->prepare("SELECT * FROM events WHERE userID = ?");
     $stmt->bind_param("s", $username);
     $stmt->execute();
@@ -71,9 +70,32 @@ function arrayOfEvents($username) {
   while ($row = mysqli_fetch_assoc($result)) {
     $events[] = $row;
   }
+  // Pulls Admin Events Into User Schedule
+  $stmt = $db->prepare("SELECT * FROM events WHERE userID = 'admin'");
+  $stmt->execute();
+
+  $result = $stmt->get_result(); // get result of database query
+
+  $events + array();
+  while ($row = mysqli_fetch_assoc($result)) {
+    $events[] = $row;
+  }
+}
+  // Use a prepared statement to get the data corresponding to all usernames (ADMIN ROLE).
+  elseif($username == "admin"){
+    $stmt = $db->prepare("SELECT * FROM events");
+    $stmt->execute();
+
+    $result = $stmt->get_result(); // get result of database query
+
+    $events = array();
+
+    while ($row = mysqli_fetch_assoc($result)) {
+      $events[] = $row;
+    }
+}
   mysqli_close($db);
   return $events;
-
 }
 
 //Function for adding an event to the database
@@ -135,11 +157,10 @@ function loadTodaysEvents($username, $date) {
     die("Connection failed: " . mysqli_connect_error());
   }
 
-  /* Unprepared database query
-  $sql = "SELECT * FROM events WHERE dateTime = '$date' AND userID = '$username'";
-  $result = mysqli_query($db, $sql);
-  */
+  $result = "";
+  $events = "";
 
+  if($username != "admin"){
     // Use a prepared statement to get the data corresponding to the given username and time.
     $stmt = $db->prepare("SELECT * FROM events WHERE dateTime = ? AND userID = ?");
     $stmt->bind_param("ss", $date, $username);
@@ -152,6 +173,34 @@ function loadTodaysEvents($username, $date) {
   while ($row = mysqli_fetch_assoc($result)) {
     $events[] = $row;
   }
+  //Adds Admin Daily Events to sidebar
+  $stmt = $db->prepare("SELECT * FROM events WHERE dateTime = ? AND userID = 'admin'");
+  $stmt->bind_param("s", $date);
+  $stmt->execute();
+
+  $result = $stmt->get_result();
+
+$events + array();
+
+while ($row = mysqli_fetch_assoc($result)) {
+  $events[] = $row;
+  }
+}
+
+elseif($username == "admin"){   
+  // Use a prepared statement to get the data corresponding to the given username and time.
+  $stmt = $db->prepare("SELECT * FROM events WHERE dateTime = ?");
+  $stmt->bind_param("s", $date);
+  $stmt->execute();
+
+  $result = $stmt->get_result();
+
+$events = array();
+
+  while ($row = mysqli_fetch_assoc($result)) {
+    $events[] = $row;
+  }
+}
   mysqli_close($db);
 
   return $events;
