@@ -69,6 +69,7 @@ body {
     padding: 0;
     overflow: hidden;
     background-color: #fff;
+    background-color: #000000;
     font-family: sans-serif;
     z-index: 1;
     align-items: stretch;
@@ -90,6 +91,7 @@ body {
   li a {
     display: inline-block;
     color: #333;
+    color: white;
     text-align: center;
     padding: 8px 12px;
     text-decoration: none;
@@ -145,16 +147,15 @@ body {
     padding-top: 5px;
   }
   option{
-    background-color: #c5c6c7;
-    width: 10%;
+    background-color: #000000;
   }
   select{
-    background-color: #fff;
-    padding-top: 1%;
+    background-color: #000000;
     text-align: center;
-    height: 3%;
-    width: 5px;
+    color: white;
   }
   select:hover{
     background-color: #45A29E;
+  }
+  .themeList{
   }

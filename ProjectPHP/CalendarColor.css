@@ -129,6 +129,24 @@
 .calendar .days .day_num .event.black {
     background-color: #4f4e4e;
 }
+.calendar .days .day_num .event.green:hover {
+    background-color: #4d9051;
+}
+.calendar .days .day_num .event.blue:hover {
+    background-color: #3b5977;
+}
+.calendar .days .day_num .event.red:hover {
+    background-color: #ab3a3a;
+}
+.calendar .days .day_num .event.orange:hover {
+    background-color: #b49131;
+}
+.calendar .days .day_num .event.purple:hover {
+    background-color: #c041be;
+}
+.calendar .days .day_num .event.black:hover {
+    background-color: #141313;
+}
 .calendar .days .day_num:nth-child(7n+1) {
     border-left: 1px solid #e6e9ea;
 }

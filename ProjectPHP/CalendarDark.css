@@ -54,8 +54,6 @@
     cursor: pointer;
     min-height: 20%;
     height: 5%;
-    background-color: white;
-    background-color: #45A29E;
     background-color: #66FCF1;
     border-radius: 8px;
     
@@ -151,17 +149,11 @@
     cursor: inherit;
 }
 .calendar .days .day_num.selected {
-    background-color: #f1f2f3;
-    background-color: gainsboro;
-    background-color: #45A29E;
     background-color: #66FCF1;
     cursor: inherit;
 }
 
 .calendar .days .day_num.selected .event-list{
-    background-color: #f1f2f3;
-    background-color: gainsboro;
-    background-color: #45A29E;
     background-color: #66FCF1;
     cursor: inherit;
 }

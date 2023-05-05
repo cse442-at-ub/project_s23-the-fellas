@@ -36,7 +36,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST["title"], $_POST["date-
 <!DOCTYPE html>
 <html>
 	<head>
-
 		<meta charset="utf-8">
 		<title>Event Calendar</title>
 		<link href="ProjectPHP/monthly_view_Dark.css" rel="stylesheet" type="text/css">
