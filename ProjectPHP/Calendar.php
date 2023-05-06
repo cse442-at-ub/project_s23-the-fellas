@@ -38,8 +38,20 @@ if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST["title"], $_POST["date-
 	<head>
 		<meta charset="utf-8">
 		<title>Event Calendar</title>
-		<link href="ProjectPHP/monthly_view_Dark.css" rel="stylesheet" type="text/css">
-		<link href="ProjectPHP/CalendarDark.css" rel="stylesheet" type="text/css">
+		<?php
+      if(isset($_COOKIE['theme'])){
+        $theme = $_COOKIE['theme'];
+        //print the theme:
+        if($theme == "dark"){
+          echo '<link href="ProjectPHP/monthly_view_Dark.css" rel="stylesheet" type="text/css">';
+		  echo '<link href="ProjectPHP/CalendarDark.css" rel="stylesheet" type="text/css">';
+        }
+        else {
+			echo '<link href="ProjectPHP/monthly_view.css" rel="stylesheet" type="text/css">';
+			echo '<link href="ProjectPHP/Calendar.css" rel="stylesheet" type="text/css">';
+        }
+      }
+    ?>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<script>
 		function validateForm() {

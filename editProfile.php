@@ -43,10 +43,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['themeList'])) {
     <link rel="stylesheet" href="css/profile.css">
     <?php
       if(isset($_COOKIE['theme'])){
-        echo "<script>console.log('theme cookie set');</script>";
         $theme = $_COOKIE['theme'];
         //print the theme:
-        echo "<script>console.log('theme: $theme');</script>";
         if($theme == "dark"){
           echo '<link rel="stylesheet" href="css/darktheme.css">';
         }
