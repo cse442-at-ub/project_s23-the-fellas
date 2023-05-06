@@ -14,6 +14,26 @@ class Calendar {
         $this->events[] = [$txt, $date, $days, $color, $dateTime];
     }
 
+    public function filterEventsByDate($day, $month, $year) {
+        $filteredEvents = [];
+        $selectedDate = date('Y-m-d', strtotime("$year-$month-$day"));
+    
+        foreach ($this->events as $event) {
+            $eventDate = date('Y-m-d', strtotime($event[1]));
+    
+            if ($selectedDate == $eventDate) {
+                $filteredEvent = [
+                    'title' => $event[0],
+                    'datetime' => $event[4],
+                    'color' => $event[3]
+                ];
+                $filteredEvents[] = $filteredEvent;
+            }
+        }
+    
+        return $filteredEvents;
+    }
+
     public function __toString() {
         $num_days = date('t', strtotime($this->active_day . '-' . $this->active_month . '-' . $this->active_year));
         $num_days_last_month = date('j', strtotime('last day of previous month', strtotime($this->active_day . '-' . $this->active_month . '-' . $this->active_year)));
@@ -45,7 +65,20 @@ class Calendar {
             if ($i == $this->active_day) {
                 $selected = ' selected';
             }
-            $html .= '<div class="day_num' . $selected . '">';
+
+            $events = $this->filterEventsByDate($i, $this->active_month, $this->active_year);
+            $events_list = [];
+    
+            foreach ($events as $event) {
+                $event_data = [
+                    'title' => $event['title'],
+                    'datetime' => $event['datetime'],
+                    'color' => $event['color']
+                ];
+                $events_list[] = $event_data;
+            }
+
+            $html .= '<div class="day_num' . $selected . '" onclick="openDayModal(' . $i . ', ' . $this->active_year . ', ' . $this->active_month . ', ' . htmlspecialchars(json_encode($events_list), ENT_QUOTES, 'UTF-8') . ', event)">';
             $html .= '<span>' . $i . '</span>';
             $html .= '<ul class="event-list">';
             foreach ($this->events as $event) {
