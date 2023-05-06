@@ -1,4 +1,5 @@
 <?php
+session_set_cookie_params(0); // configure session cookies to be destroyed when the browser closes
 session_start(); // Start the session
 
 include 'ProjectPHP/CalCode.php';
