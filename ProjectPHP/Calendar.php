@@ -51,6 +51,10 @@ if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST["title"], $_POST["date-
 			echo '<link href="ProjectPHP/Calendar.css" rel="stylesheet" type="text/css">';
         }
       }
+	  else {
+		  echo '<link href="ProjectPHP/monthly_view.css" rel="stylesheet" type="text/css">';
+		  echo '<link href="ProjectPHP/Calendar.css" rel="stylesheet" type="text/css">';
+	  }
     ?>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<script>
