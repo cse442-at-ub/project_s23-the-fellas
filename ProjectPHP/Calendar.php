@@ -40,7 +40,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST["title"], $_POST["date-
 		<title>Event Calendar</title>
 		<?php
       if(isset($_COOKIE['theme'])){
-        $theme = $_COOKIE['theme'];
+		$theme = decryptCookie($_COOKIE['theme']);
         //print the theme:
         if($theme == "dark"){
           echo '<link href="ProjectPHP/monthly_view_Dark.css" rel="stylesheet" type="text/css">';

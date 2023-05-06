@@ -1,6 +1,8 @@
 <?php 
 session_start(); // Start the session
 
+include 'server.php';
+
 // Check if the 'loggedin' variable is not set or has a value of false
 if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
     // Redirect to the login page
@@ -9,8 +11,8 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
 }
 
 if(isset($_COOKIE['theme'])){
-  $theme = $_COOKIE['theme'];
-  if($theme == "Dark"){
+  $theme = decryptCookie($_COOKIE['theme']);
+  if($theme == "dark"){
     echo '<link rel="stylesheet" href="css/darktheme.css">';
   }
 }
@@ -19,9 +21,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['themeList'])) {
   echo "<script>console.log('themelist set');</script>";
   $theme = $_POST['themeList'];
   if($theme == "Dark"){
-    setcookie("theme", "dark", time() + (86400 * 30), "/"); // set cookie for 30 days
+    setcookie("theme", encryptCookie('dark'), time() + (86400 * 30), "/"); // set cookie for 30 days
   } else if ($theme == "Light") {
-    setcookie("theme", "light", time() + (86400 * 30), "/"); // set cookie for 30 days
+    setcookie("theme", encryptCookie('light'), time() + (86400 * 30), "/"); // set cookie for 30 days
   }
   unset($_POST['themeList']); 
   header('Location: ' . $_SERVER['PHP_SELF']);
@@ -43,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['themeList'])) {
     <link rel="stylesheet" href="css/profile.css">
     <?php
       if(isset($_COOKIE['theme'])){
-        $theme = $_COOKIE['theme'];
+        $theme = decryptCookie($_COOKIE['theme']);
         //print the theme:
         if($theme == "dark"){
           echo '<link rel="stylesheet" href="css/darktheme.css">';
