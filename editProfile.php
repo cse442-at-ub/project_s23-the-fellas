@@ -14,7 +14,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['password'])) {
   $username = $_SESSION['username'];
   $password = $_POST['password'];
   if (empty($password)) {
-    echo "<script>alert('Password must be filled out')</script>";
   }
   else {
     change_password($username, $password);
@@ -23,10 +22,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['password'])) {
     unset($_POST["password"]);
     header('Location: login.php');
   }
-
-
-
-
 }
 
 
