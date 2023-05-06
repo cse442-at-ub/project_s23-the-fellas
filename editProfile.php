@@ -8,6 +8,26 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
     exit; // Exit the script
 }
 
+if(isset($_COOKIE['theme'])){
+  $theme = $_COOKIE['theme'];
+  if($theme == "Dark"){
+    echo '<link rel="stylesheet" href="css/darktheme.css">';
+  }
+}
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['themeList'])) {
+  echo "<script>console.log('themelist set');</script>";
+  $theme = $_POST['themeList'];
+  if($theme == "Dark"){
+    setcookie("theme", "dark", time() + (86400 * 30), "/"); // set cookie for 30 days
+  } else if ($theme == "Light") {
+    setcookie("theme", "light", time() + (86400 * 30), "/"); // set cookie for 30 days
+  }
+  unset($_POST['themeList']); 
+  header('Location: ' . $_SERVER['PHP_SELF']);
+
+}
+
 
 
 ?>
@@ -17,14 +37,21 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
 <!DOCTYPE html>
 <html>
   <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="UTF-8">
     <title>Edit Profile</title>
     <link rel="stylesheet" href="css/profile.css">
     <?php
-      if(isset($_POST['themeList'])){
-        $theme = $_POST['themeList'];
-        if($theme == "Dark"){
+      if(isset($_COOKIE['theme'])){
+        echo "<script>console.log('theme cookie set');</script>";
+        $theme = $_COOKIE['theme'];
+        //print the theme:
+        echo "<script>console.log('theme: $theme');</script>";
+        if($theme == "dark"){
           echo '<link rel="stylesheet" href="css/darktheme.css">';
+        }
+        else {
+          echo '<link rel="stylesheet" href="css/profile.css">';
         }
       }
     ?>
