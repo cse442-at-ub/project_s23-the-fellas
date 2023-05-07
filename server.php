@@ -309,5 +309,37 @@ function updateEvent($title, $dateTime, $color, $eventID) {
   mysqli_close($db);
 }
 
+function encryptCookie($value) {
+  if (!$value) {
+    return false;
+  }
+  $key = 'BRUHMANBRUH';
+  $cipher = 'aes-256-cbc';
+  $ivlen = openssl_cipher_iv_length($cipher);
+  $iv = openssl_random_pseudo_bytes($ivlen);
+  $ciphertext = openssl_encrypt($value, $cipher, $key, OPENSSL_RAW_DATA, $iv);
+  $hmac = hash_hmac('sha256', $iv . $ciphertext, $key, true);
+  return base64_encode($hmac . $iv . $ciphertext);
+}
+
+function decryptCookie($value) {
+  if (!$value) {
+    return false;
+  }
+  $key = 'BRUHMANBRUH';
+  $cipher = 'aes-256-cbc';
+  $c = base64_decode($value);
+  $ivlen = openssl_cipher_iv_length($cipher);
+  $hmac = substr($c, 0, 32);
+  $iv = substr($c, 32, $ivlen);
+  $ciphertext = substr($c, 32 + $ivlen);
+  $calcmac = hash_hmac('sha256', $iv . $ciphertext, $key, true);
+  if ($hmac !== $calcmac) {
+    return false;
+  }
+  $plaintext = openssl_decrypt($ciphertext, $cipher, $key, OPENSSL_RAW_DATA, $iv);
+  return $plaintext;
+}
+
 
 ?>

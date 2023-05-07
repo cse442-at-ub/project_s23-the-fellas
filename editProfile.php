@@ -1,11 +1,33 @@
 <?php 
 session_start(); // Start the session
 
+include 'server.php';
+
 // Check if the 'loggedin' variable is not set or has a value of false
 if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
     // Redirect to the login page
     header('Location: login.php');
     exit; // Exit the script
+}
+
+if(isset($_COOKIE['theme'])){
+  $theme = decryptCookie($_COOKIE['theme']);
+  if($theme == "dark"){
+    echo '<link rel="stylesheet" href="css/darktheme.css">';
+  }
+}
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['themeList'])) {
+  echo "<script>console.log('themelist set');</script>";
+  $theme = $_POST['themeList'];
+  if($theme == "Dark"){
+    setcookie("theme", encryptCookie('dark'), time() + (86400 * 30), "/"); // set cookie for 30 days
+  } else if ($theme == "Light") {
+    setcookie("theme", encryptCookie('light'), time() + (86400 * 30), "/"); // set cookie for 30 days
+  }
+  unset($_POST['themeList']); 
+  header('Location: ' . $_SERVER['PHP_SELF']);
+
 }
 
 
@@ -22,10 +44,14 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
     <title>Edit Profile</title>
     <link rel="stylesheet" href="css/profile.css">
     <?php
-      if(isset($_POST['themeList'])){
-        $theme = $_POST['themeList'];
-        if($theme == "Dark"){
+      if(isset($_COOKIE['theme'])){
+        $theme = decryptCookie($_COOKIE['theme']);
+        //print the theme:
+        if($theme == "dark"){
           echo '<link rel="stylesheet" href="css/darktheme.css">';
+        }
+        else {
+          echo '<link rel="stylesheet" href="css/profile.css">';
         }
       }
     ?>
