@@ -22,12 +22,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['password']) && isset($
 		echo '<script>alert("The passwords do not match!");</script>';
 		echo file_get_contents("pass_reset_submission.html");
 	}
-    // Check if the credentials are valid using the check_credentials function
-    change_password($username, $password);
-    unset($_SESSION["username"]);
-    unset($_SESSION["loggedin"]);
-    unset($_POST["password"]);
-    header('Location: login.php');
+    else{
+		change_password($username, $password);
+		unset($_SESSION["username"]);
+		unset($_SESSION["loggedin"]);
+		unset($_POST["password"]);
+		header('Location: login.php');
+	}
+   
 }
 
 ?>
