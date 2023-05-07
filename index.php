@@ -1,7 +1,7 @@
 <?php 
 //If logged in, sent to homepage
 if ($_SESSION['loggedin'] = true) {
-    echo file_get_contents("header.html");
+    echo file_get_contents("header.php");
     include("ProjectPHP/Calendar.php");
 }
 

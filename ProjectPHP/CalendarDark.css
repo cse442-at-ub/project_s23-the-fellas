@@ -10,7 +10,7 @@
     align-items: center;
     font-size: 20px;
     font-weight: bold;
-    color: #448cd6;
+    color: #1F2833;
     padding: 5px 0;
 }
 .header{
@@ -29,14 +29,12 @@
     align-items: center;
     width: calc(87.5% / 7);
     height: 5%;
-    border-right: 1px solid #2c7aca;
-    /* padding: 10px; */
+    border-right: 1px solid #45A29E;
     text-transform: uppercase;
     font-size: large;
-    color: #fff;
-    background-color: #448cd6;
-    
-    
+    color: #0B0C10;
+    background-color: #66FCF1;
+    background-color: #45A29E;
 }
 .calendar .days .day_name:nth-child(7) {
     border: none;
@@ -50,17 +48,13 @@
     width: calc(76.75% / 7);
     width: calc(87.5% / 7);
     border-right: 1px solid #e6e9ea;
-    /* border-bottom: 1px solid #e6e9ea; */
-    /* padding: 10px; */
-    /* padding: 1%; */
     font-weight: bold;
     color: #7c878d;
+    color:#0B0C10;
     cursor: pointer;
-    /* min-height: 100px; */
     min-height: 20%;
-    /* min-height: 5%; */
     height: 5%;
-    background-color: white;
+    background-color: #66FCF1;
     border-radius: 8px;
     
 
@@ -103,13 +97,11 @@
     margin-top: 2%;
     padding: 5px;
     background-color: white;
+    background-color: #45A29E;
+    background-color: #66FCF1;
     overflow-y: scroll; 
     box-shadow: none;
-
-
   }
-
-
 
 .calendar .days .day_num .event.green {
     background-color: #6ac56e;
@@ -152,94 +144,19 @@
 }
 
 .calendar .days .day_num.ignore {
-    background-color: #fdfdfd;
-    background-color: #989696;
+    background-color: #1F2833;
     color: #ced2d4;
     cursor: inherit;
 }
 .calendar .days .day_num.selected {
-    background-color: #f1f2f3;
-    background-color: gainsboro;
+    background-color: #66FCF1;
     cursor: inherit;
 }
 
 .calendar .days .day_num.selected .event-list{
-    background-color: #f1f2f3;
-    background-color: gainsboro;
+    background-color: #66FCF1;
     cursor: inherit;
 }
 .calendar .days .day_num .event-list::-webkit-scrollbar {
     display:none
 }
-
-/* Modal background */
-#dayModal {
-    display: none; /* Hide the modal by default */
-    position: fixed;
-    z-index: 999;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.4);
-}
-
-/* Modal content */
-.modal-content {
-    background-color: #fefefe;
-    margin: 15% auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%;
-    max-height: 70vh;
-    overflow-y: auto;
-}
-
-/* Close button */
-.close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-/* Modal title */
-#dayModalTitle {
-    margin-top: 0;
-    margin-bottom: 10px;
-    font-size: 24px;
-    font-weight: bold;
-}
-
-/* Event list */
-#dayModalEvents {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    outline: none;
-}
-
-/* Event list items */
-#dayModalEvents li {
-    margin-bottom: 10px;
-    padding: 5px;
-    border: 1px solid #ccc;
-    border-radius: 3px;
-    outline: none;
-    font-size: 30px;
-}
-
-
-
-
-
-
