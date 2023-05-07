@@ -215,6 +215,7 @@
     margin-top: 0;
     margin-bottom: 10px;
     font-size: 24px;
+    font-weight: bold;
 }
 
 /* Event list */
@@ -234,6 +235,7 @@
     border: 1px solid #ccc;
     border-radius: 3px;
     outline: none;
+    font-size: 30px;
 }
 
 

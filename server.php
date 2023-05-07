@@ -214,12 +214,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
   // Decode the JSON data
   $json_data = json_decode($raw_data, true);
-  echo "<script>alert('Devin: " . $raw_data . "');</script>";
 
   // Get the action from the decoded JSON data
-  $action = $json_data['action'];
+  // $action = $json_data['action'];
+  if ($json_data == null) {
+    return;
+  }
 
-  if ($action == 'updateEvent') {
+  if (($json_data['action']) == 'updateEvent') {
       $title = $json_data['title'];
       $dateTime = $json_data['dateTime'];
       $color = $json_data['color'];
@@ -227,14 +229,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
       updateEvent($title, $dateTime, $color, $eventID);
   }
-  if ($action =='deleteEvent') {
+  if (($json_data['action']) =='deleteEvent') {
       $title = $json_data['title'];
       $dateTime = $json_data['dateTime'];
       $color = $json_data['color'];
       $eventID = $json_data['eventID'];
       deleteEvent($title, $dateTime, $color, $eventID);
     }
-  if ($action =='loadTodaysEvents'){
+  if (($json_data['action']) =='loadTodaysEvents'){
       // echo "<script>console.log('made it here');</script>";
       $username = $json_data['username'];
       $date = $json_data['date'];
@@ -339,6 +341,39 @@ function decryptCookie($value) {
   }
   $plaintext = openssl_decrypt($ciphertext, $cipher, $key, OPENSSL_RAW_DATA, $iv);
   return $plaintext;
+}
+
+
+function change_password($username, $password){
+  // Connect to the database
+  $db = mysqli_connect("oceanus.cse.buffalo.edu:3306", "devincle", "50343841", "cse442_2023_spring_team_c_db");
+  echo "<script>console.log('change password ');</script>";
+  // Check if the connection was successful
+  if (!$db) {
+      echo "<script>console.log('change password failed');</script>";
+      die("Connection failed: " . mysqli_connect_error());
+  }
+
+  // Sanitize the input to prevent SQL injection attacks
+  $username = mysqli_real_escape_string($db, $username);
+  $password = mysqli_real_escape_string($db, $password);
+
+  // Hash and salt the password
+  $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+
+  // Use a prepared statement to update the password for the given username
+  $stmt = $db->prepare("UPDATE user_accounts SET password = ? WHERE username = ?");
+  $stmt->bind_param("ss", $hashed_password, $username);
+  $stmt->execute();
+  // Check if there was an error with the query
+  if (!$stmt) {
+      echo "Error updating password: " . mysqli_error($db);
+      die("Query failed: " . mysqli_error($db));
+  }
+  echo "<script>console.log('change password success');</script>";
+  // Close the database connection
+  mysqli_close($db);
+
 }
 
 
