@@ -30,6 +30,7 @@ if(isset($_COOKIE['theme'])){
     echo '<link rel="stylesheet" href="css/darktheme.css">';
   }
 }
+}
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['themeList'])) {
   echo "<script>console.log('themelist set');</script>";
@@ -43,8 +44,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['themeList'])) {
   header('Location: ' . $_SERVER['PHP_SELF']);
 
 }
-
-
 
 ?>
 
