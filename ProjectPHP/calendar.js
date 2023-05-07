@@ -7,16 +7,20 @@ document.addEventListener('DOMContentLoaded', function () {
     const closeEventInfoModal = document.querySelector('.event-info-close');
     const eventInfoForm = document.getElementById('eventInfoForm');
     const eventInfoID = document.getElementById('eventInfoID');
-  
+
+    var dontOpen = false;
     //When you click on an event, the modal opens and the event info is displayed
     function updateEventListener(item) {
-        item.addEventListener('click', function () {
-            eventInfoTitle.value = this.innerText;
-            eventInfoDate.value = this.getAttribute('data-date');
-            eventInfoID.value = this.getAttribute('data-date-time');
-            eventInfoColor.value = this.getAttribute('data-color').trim();
-            console.log('x', this.getAttribute('data-color').trim(), 'x');
-            eventModal.style.display = 'block';
+        item.addEventListener('click', function (event) {
+                event.preventDefault();
+                console.log(event)
+                eventInfoTitle.value = this.innerText;
+                eventInfoDate.value = this.getAttribute('data-date');
+                eventInfoID.value = this.getAttribute('data-date-time');
+                eventInfoColor.value = this.getAttribute('data-color').trim();
+                console.log('x', this.getAttribute('data-color').trim(), 'x');
+                eventModal.style.display = 'block';
+            
         });
     }
 
@@ -79,8 +83,8 @@ document.addEventListener('DOMContentLoaded', function () {
     const dateTime = eventInfoDate.value.toString();
     const color = eventInfoColor.value.toString();
     const eventID = eventInfoID.value.toString();
-    console.log(title, dateTime, color, eventID);
-    console.log("delete")
+    // console.log(title, dateTime, color, eventID);
+    // console.log("delete")
     fetch('server.php', {
         method: 'POST',
         headers: {
@@ -94,7 +98,10 @@ document.addEventListener('DOMContentLoaded', function () {
           eventID: eventID,
         })
     })
-    .then(response => response.text())
+    .then(response => {
+        console.log("Resooinseewd")
+        console.log(response.text());
+    })
     .then(data => {
         // Update the corresponding list item
         const listItem = document.getElementById(`event-item-${eventID}`);
@@ -114,6 +121,9 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
    }
+
+
+
     //When you click outside the modal or on the close button, the modal closes
     closeEventInfoModal.addEventListener('click', function () {
         eventModal.style.display = 'none';
@@ -125,4 +135,44 @@ document.addEventListener('DOMContentLoaded', function () {
             eventModal.style.display = 'none';
         }
     });
-  });
+});
+
+function openDayModal(day, year, month, events, event) {
+    console.log("Event: ", event.target);
+    if (!event.target.classList.contains('day_num')) {
+        return;
+    }
+    const dateStr = year + '-' + month.toString().padStart(2, '0') + '-' + day.toString().padStart(2, '0');
+    const dayModal = document.getElementById("dayModal");
+    const dayModalTitle = document.getElementById("dayModalTitle");
+    const dayModalEvents = document.getElementById("dayModalEvents");
+    
+    // Set the modal title
+    dayModalTitle.innerHTML = dateStr;
+    
+    // Clear any existing events
+    dayModalEvents.innerHTML = "";
+    
+    // Add each event to the list
+    events.forEach(event => {
+        const li = document.createElement("li");
+        li.innerHTML = event.title;
+        dayModalEvents.appendChild(li);
+    });
+    
+    // Display the modal
+    dayModal.style.display = "block";
+    
+    // When the user clicks on the close button or outside the modal, close it
+    const close = document.getElementsByClassName("close")[0];
+    window.onclick = function(event) {
+        if (event.target == dayModal || event.target == close) {
+            dayModal.style.display = "none";
+        }
+    }
+}
+
+function print(thing) {
+    console.log(thing);
+
+}

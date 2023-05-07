@@ -113,11 +113,14 @@ if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST["title"], $_POST["date-
 			</form>
 		</div>
 	</div>
-	    <!-- <nav class="navtop"> -->
-	    <!-- <div> -->
+			<div id="dayModal" class="modal">
+				<div class="modal-content">
+					<span class="close">&times;</span>
+					<h2 id="dayModalTitle">Events</h2>
+					<ul id="dayModalEvents"></ul>
+				</div>
+			</div>
 
-		<!-- </div> -->
-	    <!-- </nav> -->
 		<div class="sidenav">
 			<a id="sideAnchor">  
 				<button id="sideButton" type="button">Add Event</button>
@@ -127,7 +130,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST["title"], $_POST["date-
 					date_default_timezone_set('America/New_York');
 					echo 'Todays Events';
 					$current_date = date('Y-m-d'); 
-					$todaysEvents = loadTodaysEvents($_SESSION['username'], $current_date);
+					$todaysEvents = loadTodaysEvents($_SESSION['username'], $current_date, FALSE);
 					
 				?>
 			</h1>

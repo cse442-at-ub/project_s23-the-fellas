@@ -8,7 +8,9 @@
     }
     input[type="text"],
     input[type="password"],
-    input[type="submit"]  {
+    input[type="email"],
+    input[type="submit"],
+    input[type="button"]    {
         padding: 50px !important;
         font-size: 90% !important;
     }
@@ -23,10 +25,15 @@
 body {
     font-family: "Lato", sans-serif;
     background-color: #303030;
+	background-image: url('https://www.androidauthority.com/wp-content/uploads/2014/10/Google-Calendar-twelve-seasonal-backgrounds.png.webp')
 }
 
 form {
     background-color: #fff;
+    background-color: #303030;
+    background-color: rgb(125, 233, 197);
+    background-color: #446879;
+    opacity: 93%;
     border-radius: 5px;
     padding: 20px;
     margin: 0 auto;
@@ -41,7 +48,8 @@ label {
 }
 
 input[type="text"],
-input[type="password"] {
+input[type="password"],
+input[type="email"] {
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
@@ -52,7 +60,8 @@ input[type="password"] {
 
 }
 
-input[type="submit"] {
+input[type="submit"],
+input[type="button"] {
     background-color: #333;
     color: #fff;
     border: none;
@@ -62,6 +71,7 @@ input[type="submit"] {
     cursor: pointer;
 }
 
-input[type="submit"]:hover {
+input[type="submit"]:hover,
+input[type="button"]:hover {
     background-color: #555;
 }

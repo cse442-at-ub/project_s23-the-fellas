@@ -19,17 +19,6 @@ function check_credentials($username, $password) {
     $username = mysqli_real_escape_string($db, $username);
     $password = mysqli_real_escape_string($db, $password);
 
-    /* Unprepared db access
-    // Query the database to get data for user with username='$username'
-    //$query = "SELECT * FROM user_accounts WHERE username='$username'";
-    $query = "SELECT * FROM user_accounts WHERE username='$username'";
-    $result = mysqli_query($db, $query);
-    
-    // Check if there was an error with the query
-    if (!$result) {
-      die("Query failed: " . mysqli_error($db));
-    }
-*/
     // Use a prepared statement to get the data corresponding to the given username.
     $stmt = $db->prepare("SELECT * FROM user_accounts WHERE username = ?");
     $stmt->bind_param("s", $username);
@@ -65,12 +54,11 @@ function arrayOfEvents($username) {
   if (!$db) {
     die("Connection failed: " . mysqli_connect_error());
   }
-  /* Unprepared db query
-  $sql = "SELECT * FROM events WHERE userID = '$username'";
-  $result = mysqli_query($db, $sql);
-  */
-
-    // Use a prepared statement to get the data corresponding to the given username.
+    $result = "";
+    $events = "";
+    
+  // Use a prepared statement to get the data corresponding to the given username.
+  if($username != "admin"){
     $stmt = $db->prepare("SELECT * FROM events WHERE userID = ?");
     $stmt->bind_param("s", $username);
     $stmt->execute();
@@ -82,9 +70,32 @@ function arrayOfEvents($username) {
   while ($row = mysqli_fetch_assoc($result)) {
     $events[] = $row;
   }
+  // Pulls Admin Events Into User Schedule
+  $stmt = $db->prepare("SELECT * FROM events WHERE userID = 'admin'");
+  $stmt->execute();
+
+  $result = $stmt->get_result(); // get result of database query
+
+  $events + array();
+  while ($row = mysqli_fetch_assoc($result)) {
+    $events[] = $row;
+  }
+}
+  // Use a prepared statement to get the data corresponding to all usernames (ADMIN ROLE).
+  elseif($username == "admin"){
+    $stmt = $db->prepare("SELECT * FROM events");
+    $stmt->execute();
+
+    $result = $stmt->get_result(); // get result of database query
+
+    $events = array();
+
+    while ($row = mysqli_fetch_assoc($result)) {
+      $events[] = $row;
+    }
+}
   mysqli_close($db);
   return $events;
-
 }
 
 //Function for adding an event to the database
@@ -140,16 +151,16 @@ function deleteTestEvents() {
 
 //Function for the side bar code
 function loadTodaysEvents($username, $date) {
+  echo "<script>console.log('LoadTodaysEvents Called: " . $username . $date . "');</script>";
   $db = mysqli_connect("oceanus.cse.buffalo.edu:3306", "jtsang3", "50301665", "cse442_2023_spring_team_c_db");
   if (!$db) {
     die("Connection failed: " . mysqli_connect_error());
   }
 
-  /* Unprepared database query
-  $sql = "SELECT * FROM events WHERE dateTime = '$date' AND userID = '$username'";
-  $result = mysqli_query($db, $sql);
-  */
+  $result = "";
+  $events = "";
 
+  if($username != "admin"){
     // Use a prepared statement to get the data corresponding to the given username and time.
     $stmt = $db->prepare("SELECT * FROM events WHERE dateTime = ? AND userID = ?");
     $stmt->bind_param("ss", $date, $username);
@@ -162,7 +173,36 @@ function loadTodaysEvents($username, $date) {
   while ($row = mysqli_fetch_assoc($result)) {
     $events[] = $row;
   }
+  //Adds Admin Daily Events to sidebar
+  $stmt = $db->prepare("SELECT * FROM events WHERE dateTime = ? AND userID = 'admin'");
+  $stmt->bind_param("s", $date);
+  $stmt->execute();
+
+  $result = $stmt->get_result();
+
+$events + array();
+
+while ($row = mysqli_fetch_assoc($result)) {
+  $events[] = $row;
+  }
+}
+
+elseif($username == "admin"){   
+  // Use a prepared statement to get the data corresponding to the given username and time.
+  $stmt = $db->prepare("SELECT * FROM events WHERE dateTime = ?");
+  $stmt->bind_param("s", $date);
+  $stmt->execute();
+
+  $result = $stmt->get_result();
+
+$events = array();
+
+  while ($row = mysqli_fetch_assoc($result)) {
+    $events[] = $row;
+  }
+}
   mysqli_close($db);
+
   return $events;
 }
 
@@ -174,32 +214,39 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
   // Decode the JSON data
   $json_data = json_decode($raw_data, true);
-  echo "<script>console.log('PHP: " . $raw_data . "');</script>";
 
   // Get the action from the decoded JSON data
-  $action = $json_data['action'];
+  // $action = $json_data['action'];
+  if ($json_data == null) {
+    return;
+  }
 
-  if ($action == 'updateEvent') {
+  if (($json_data['action']) == 'updateEvent') {
       $title = $json_data['title'];
       $dateTime = $json_data['dateTime'];
       $color = $json_data['color'];
       $eventID = $json_data['eventID'];
 
-      echo "Calling updateEvent with the following data: ";
-      echo "Title: $title, DateTime: $dateTime, Color: $color, EventID: $eventID";
       updateEvent($title, $dateTime, $color, $eventID);
   }
-  if ($action =='deleteEvent') {
+  if (($json_data['action']) =='deleteEvent') {
       $title = $json_data['title'];
       $dateTime = $json_data['dateTime'];
       $color = $json_data['color'];
       $eventID = $json_data['eventID'];
-      echo "$eventID ";
       deleteEvent($title, $dateTime, $color, $eventID);
     }
+  if (($json_data['action']) =='loadTodaysEvents'){
+      // echo "<script>console.log('made it here');</script>";
+      $username = $json_data['username'];
+      $date = $json_data['date'];
+      loadTodaysEvents($username, $date);
+  }
 }
 
 function deleteEvent($title, $dateTime, $color, $eventID) {
+  echo "<script>console.log('DeleteEventCalled:');</script>";
+
   $db = mysqli_connect("oceanus.cse.buffalo.edu:3306", "jtsang3", "50301665", "cse442_2023_spring_team_c_db");
   if (!$db) {
     die("Connection failed: " . mysqli_connect_error());
@@ -262,6 +309,39 @@ function updateEvent($title, $dateTime, $color, $eventID) {
   */
 
   mysqli_close($db);
+}
+
+
+function change_password($username, $password){
+  // Connect to the database
+  $db = mysqli_connect("oceanus.cse.buffalo.edu:3306", "devincle", "50343841", "cse442_2023_spring_team_c_db");
+  echo "<script>console.log('change password ');</script>";
+  // Check if the connection was successful
+  if (!$db) {
+      echo "<script>console.log('change password failed');</script>";
+      die("Connection failed: " . mysqli_connect_error());
+  }
+
+  // Sanitize the input to prevent SQL injection attacks
+  $username = mysqli_real_escape_string($db, $username);
+  $password = mysqli_real_escape_string($db, $password);
+
+  // Hash and salt the password
+  $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+
+  // Use a prepared statement to update the password for the given username
+  $stmt = $db->prepare("UPDATE user_accounts SET password = ? WHERE username = ?");
+  $stmt->bind_param("ss", $hashed_password, $username);
+  $stmt->execute();
+  // Check if there was an error with the query
+  if (!$stmt) {
+      echo "Error updating password: " . mysqli_error($db);
+      die("Query failed: " . mysqli_error($db));
+  }
+  echo "<script>console.log('change password success');</script>";
+  // Close the database connection
+  mysqli_close($db);
+
 }
 
 
