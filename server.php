@@ -48,6 +48,117 @@ function check_credentials($username, $password) {
     mysqli_close($db);
 }
 
+function check_credentials_email($username, $email) {
+
+    // Connect to the database
+    $db = mysqli_connect("oceanus.cse.buffalo.edu:3306", "devincle", "50343841", "cse442_2023_spring_team_c_db");
+    
+    // Check if the connection was successful
+    if (!$db) {
+      die("Connection failed: " . mysqli_connect_error());
+    }
+    
+    // Sanitize the input to prevent SQL injection attacks
+    $username = mysqli_real_escape_string($db, $username);
+    $email = mysqli_real_escape_string($db, $email);
+
+    // Use a prepared statement to get the data corresponding to the given username.
+    $stmt = $db->prepare("SELECT * FROM user_accounts WHERE username = ?");
+    $stmt->bind_param("s", $username);
+    $stmt->execute();
+
+    $result = $stmt->get_result();
+
+    // Check if there was an error with the query
+    if (!$result) {
+        die("Query failed: " . mysqli_error($db));
+    }
+
+    $row = $result->fetch_assoc(); // parse the query result into an associative array.
+
+    if (is_array($row)) {
+        if ($email == $row['email']) {
+            // The credentials are valid
+            return true;
+        }
+        else {
+            // The credentials are not valid
+            return false;
+        }
+    }
+    
+    // Close the database connection
+    mysqli_close($db);
+}
+
+function check_questions_and_answers($username, $answer_1, $answer_2) {
+
+    // Connect to the database
+    $db = mysqli_connect("oceanus.cse.buffalo.edu:3306", "devincle", "50343841", "cse442_2023_spring_team_c_db");
+    
+    // Check if the connection was successful
+    if (!$db) {
+      die("Connection failed: " . mysqli_connect_error());
+    }
+    
+    // Sanitize the input to prevent SQL injection attacks
+	$username = mysqli_real_escape_string($db, $username);
+    $answer_1 = mysqli_real_escape_string($db, $answer_1);
+    $answer_2 = mysqli_real_escape_string($db, $answer_2);
+
+    // Use a prepared statement to get the data corresponding to the given username.
+    $stmt = $db->prepare("SELECT * FROM user_accounts WHERE username = ?");
+    $stmt->bind_param("s", $username);
+    $stmt->execute();
+
+    $result = $stmt->get_result();
+
+    // Check if there was an error with the query
+    if (!$result) {
+        die("Query failed: " . mysqli_error($db));
+    }
+
+    $row = $result->fetch_assoc(); // parse the query result into an associative array.
+
+    if (is_array($row)) {
+        if (password_verify($answer_1, $row['answer_1']) and password_verify($answer_2, $row['answer_2'])) {
+            // The credentials are valid
+            return true;
+        }
+        else {
+            // The credentials are not valid
+            return false;
+        }
+    }
+    
+    // Close the database connection
+    mysqli_close($db);
+}
+
+function get_questions($username) {
+	 // Connect to the database
+    $db = mysqli_connect("oceanus.cse.buffalo.edu:3306", "devincle", "50343841", "cse442_2023_spring_team_c_db");
+    
+    // Check if the connection was successful
+    if (!$db) {
+      die("Connection failed: " . mysqli_connect_error());
+    }
+    
+    // Sanitize the input to prevent SQL injection attacks
+    $username = mysqli_real_escape_string($db, $username);
+	$stmt = $db->prepare("SELECT * FROM user_accounts WHERE username = ?");
+    $stmt->bind_param("s", $username);
+    $stmt->execute();
+
+    $result = $stmt->get_result();
+	if (!$result) {
+        die("Query failed: " . mysqli_error($db));
+    }
+
+    $row = $result->fetch_assoc(); // parse the query result into an associative array.
+	return [$row['question_1'], $row['question_2']];
+}
+
 //Returns the entire array of events for a given user
 function arrayOfEvents($username) {
   $db = mysqli_connect("oceanus.cse.buffalo.edu:3306", "jtsang3", "50301665", "cse442_2023_spring_team_c_db");
@@ -311,6 +422,37 @@ function updateEvent($title, $dateTime, $color, $eventID) {
   mysqli_close($db);
 }
 
+function encryptCookie($value) {
+  if (!$value) {
+    return false;
+  }
+  $key = 'BRUHMANBRUH';
+  $cipher = 'aes-256-cbc';
+  $ivlen = openssl_cipher_iv_length($cipher);
+  $iv = openssl_random_pseudo_bytes($ivlen);
+  $ciphertext = openssl_encrypt($value, $cipher, $key, OPENSSL_RAW_DATA, $iv);
+  $hmac = hash_hmac('sha256', $iv . $ciphertext, $key, true);
+  return base64_encode($hmac . $iv . $ciphertext);
+}
+
+function decryptCookie($value) {
+  if (!$value) {
+    return false;
+  }
+  $key = 'BRUHMANBRUH';
+  $cipher = 'aes-256-cbc';
+  $c = base64_decode($value);
+  $ivlen = openssl_cipher_iv_length($cipher);
+  $hmac = substr($c, 0, 32);
+  $iv = substr($c, 32, $ivlen);
+  $ciphertext = substr($c, 32 + $ivlen);
+  $calcmac = hash_hmac('sha256', $iv . $ciphertext, $key, true);
+  if ($hmac !== $calcmac) {
+    return false;
+  }
+  $plaintext = openssl_decrypt($ciphertext, $cipher, $key, OPENSSL_RAW_DATA, $iv);
+  return $plaintext;
+}
 
 function change_password($username, $password){
   // Connect to the database
@@ -343,6 +485,5 @@ function change_password($username, $password){
   mysqli_close($db);
 
 }
-
 
 ?>

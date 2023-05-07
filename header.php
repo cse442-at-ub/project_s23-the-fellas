@@ -5,7 +5,8 @@
     <head>
         <meta charset="UTF-8">
         <meta name="description" contents="CSE 442 Web App">
-        <link rel="stylesheet" href="css/style.css" type="text/css">
+        <link rel="stylesheet" href="css/styleDark.css" type="text/css">
+
     </head>
     <body>
         <header>
@@ -13,8 +14,7 @@
                 <ul>
                     <li class="group"><span>the fellas.</span></li>
                     <li>
-                        <ul class="nav-options">
-                            <li><a <button id="topButton" type="button">Add Event</button></a></li>
+                        <ul class="nav-options">             
                             <li><a href="index.php" class="current">Home</a></li>
                             <li><a href="editProfile.php">Profile</a></li>
                             <li><a href="logOut.php">Log Out</a></li>

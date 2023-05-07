@@ -1,6 +1,7 @@
 
 
 <?php
+session_set_cookie_params(0); // configure session cookies to be destroyed when the browser closes
 session_start();
 // Include the server.php file
 include('server.php');
@@ -44,12 +45,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['username']) && isset($
 		<input type="text" name="username" id="username" required><br><br>
 		<label for="password">Password:</label>
 		<input type="password" name="password" id="password" required><br><br>
-        <!--<a href="url">Forgot your password?</a>-->
+        <a href="pass_reset_request.html">Forgot your password?</a>
 		<input type="submit" value="Log In">
-        
         <a href="register.html"> <input type="button" value="Register"></a>
 	</form>
-	<body style="background-image: url('https://www.androidauthority.com/wp-content/uploads/2014/10/Google-Calendar-twelve-seasonal-backgrounds.png.webp');">
 </body>
 </html>
 
